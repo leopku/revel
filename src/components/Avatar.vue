@@ -1,6 +1,6 @@
 <template>
   <div class="avatar">
-    <span class="avatar-inner bg--mediumturquoise text-regular--big" v-if="username">
+    <span class="avatar-inner bg--mediumturquoise text-regular--big" v-if="!avatar">
       <slot name="letter" >
         {{ username | firstAndCapitalize }}
       </slot>

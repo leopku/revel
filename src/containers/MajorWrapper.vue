@@ -49,14 +49,12 @@ export default {
       topics: [{
         objectId: 'BTNqRdpwFR',
         title: 'Revel 的故事：我为什么要开发 Revel',
-        content: '德洛丽丝也瞬间明白到，一切早已物是人非。或许这就是人类和人造人的区别，德洛丽丝哭了。她不是为自己哭，而是为威廉哭，她看着威廉脸上那些岁月的痕迹，她知道自己赢了。人类终究敌不过生老病死，而德洛丽丝，和其他人造人，将会永恒。',
+        content: '多洛丽丝也瞬间明白到，一切早已物是人非。或许这就是人类和人造人的区别，德洛丽丝哭了。她不是为自己哭，而是为威廉哭，她看着威廉脸上那些岁月的痕迹，她知道自己赢了。人类终究敌不过生老病死，而德洛丽丝，和其他人造人，将会永恒。',
         tags: [{
           title: '美剧',
           cls: 'bg--orange fg-white'
         },
-        {
-          title: '西部世界'
-        }],
+        { title: '西部世界' }, { title: '甜水镇' }],
         repliedBy: { username: 'leopku', avatar: 'http://discuss.flarum.org.cn/assets/avatars/rincefsd6hquwsvx.jpg' },
         repliedAt: 16,
         replyCount: 99
@@ -73,7 +71,7 @@ export default {
           title: '西部世界'
         },
         {
-          title: '接待员'
+          title: '抵达大厅'
         },
         {
           title: '梅芙'

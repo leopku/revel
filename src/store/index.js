@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-22 22:55:44
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-27 23:27:07
+* @Last Modified time: 2017-06-28 23:57:57
 */
 
 'use strict'
@@ -14,48 +14,43 @@ import VueAxios from 'vue-axios'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
 
+import auth from './modules/auth'
+import tags from './modules/tags'
+
 const appName = 'revel'
 
-// axios.defaults.baseURL = '/api/v1'
-axios.defaults.baseURL = 'http://localhost:5000/parse'
+axios.defaults.baseURL = '/api/v1'
 axios.defaults.headers.common['X-Parse-Application-Id'] = appName
-
-import { mutations as authMutations, actions as authActions } from './auth'
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 
-const state = {
-  test: 0,
-  loaded: false,
-  loading: false,
-  user: null,
-  isSignupVisible: false,
-  isLoginVisible: false
+const getters = {
+  isLogin: state => ((state.auth || {}).user || {}).sessionToken
 }
 
-const mutations = {
-  ...authMutations
-}
+const mutations = {}
 
-const actions = {
-  ...authActions
-}
+const actions = {}
 
 const store = new Vuex.Store({
-  state,
+  getters,
   mutations,
   actions,
+  modules: {
+    auth,
+    tags
+  },
   plugins: [createPersistedState({
     key: appName,
     getState: (key) => {
-      const user = Cookies.getJSON(key)
-      if ((user || {}).sessionToken) {
-        Vue.axios.defaults.headers.common['X-Parse-Session-Token'] = user.sessionToken
+      const auth = Cookies.getJSON(key)
+      if (((auth || {}).user || {}).sessionToken) {
+        Vue.axios.defaults.headers.common['X-Parse-Session-Token'] = auth.user.sessionToken
       }
-      return { user }
+      return { auth }
     },
-    setState: (key, state) => Cookies.set(key, state.user, { expires: 30 })
+    setState: (key, state) => Cookies.set(key, state.auth, { expires: 30 })
   })]
 })
 

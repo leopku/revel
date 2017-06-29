@@ -1,7 +1,6 @@
 <template>
   <section class="topic-list-item flex">
-    <div class="avatar"><span class="avatar-inner bg--mediumturquoise text-regular--big" v-if="!repliedBy.avatar">{{ repliedBy.username | firstAndCapitalize }}</span>
-    <img v-if="repliedBy.avatar" class="avatar-inner bg--mediumturquoise text-regular--big" src="http://discuss.flarum.org.cn/assets/avatars/rincefsd6hquwsvx.jpg" alt=""></div>
+    <Avatar :username="repliedBy.username" :avatar="repliedBy.avatar"></Avatar>
     <div class="topic">
       <el-row>
         <el-col class="flex flex-justify--between">
@@ -15,12 +14,6 @@
           </div>
           <div class="tags-right flex flex-align--baseline">
             <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :class="tag.cls">{{tag.title}}</el-tag>
-            <!-- <span class="tag" v-for="(tag, index) in topic.tags" :key="index" :class="tag.colorCls">{{tag.title}}</span> -->
-            <!-- <span class="tag bg--orange fg-white">求助</span>
-            <span class="tag bg-gray--extra">开发</span> -->
-            <!-- <span class="tag bg-gray--extra">开发</span>
-            <span class="tag bg-gray--extra">开发</span>
-            <span class="tag bg-gray--extra">开发</span> -->
           </div>
         </el-col>
       </el-row>
@@ -39,6 +32,8 @@
 </template>
 
 <script>
+import Avatar from '@/components/Avatar'
+
 export default {
   name: 'topic',
   props: {
@@ -46,6 +41,9 @@ export default {
       type: Object,
       required: true
     }
+  },
+  components: {
+    Avatar
   },
   data () {
     return {
@@ -58,26 +56,7 @@ export default {
 <style scoped lang="scss">
 
 .topic-list-item {
-  // white-space: nowrap;
   padding: 1em 0;
-
-  .avatar {
-    margin: 0 .8em;
-
-    .avatar-inner {
-      color: #fff;
-      display: inline-block;
-      box-sizing: content-box;
-      text-align: center;
-      vertical-align: center;
-      font-weight: normal;
-      line-height: 2em;
-
-      height: 2em;
-      width: 2em;
-      border-radius: 2em;
-    }
-  }
 
   .topic {
     .title {

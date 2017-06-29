@@ -1,21 +1,21 @@
 <template>
   <nav class="top-nav">
     <el-row>
-      <el-col :span="16" :offset="1">
+      <el-col :xs="{span: 0}" :sm="{span: 16}" :md="{span: 16}" :lg="{span: 16}" :span="16" :offset="1">
         <el-menu theme="light" mode="horizontal" class="bg--white">
           <el-menu-item index="1">首页</el-menu-item>
           <el-menu-item index="2">文档</el-menu-item>
           <el-menu-item index="3">下载</el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="5" class="float-right" v-show="!isLogin">
+      <el-col :xs="{span: 0}" :sm="{span: 5}" :md="{span: 5}" :lg="{span: 5}" :span="5" class="float-right" v-show="!isLogin">
         <el-menu theme="light" mode="horizontal" class="bg--white">
           <!-- <el-menu-item index="1" @click="isSignupVisible=true">注册</el-menu-item> -->
-          <el-menu-item index="1" @click="$store.state.isSignupVisible=true">注册</el-menu-item>
-          <el-menu-item index="2" @click="$store.state.isLoginVisible=true">登入</el-menu-item>
+          <el-menu-item index="1" @click="$store.state.auth.isSignupVisible=true">注册</el-menu-item>
+          <el-menu-item index="2" @click="$store.state.auth.isLoginVisible=true">登入</el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="3" class="float-right" v-if="isLogin">
+      <el-col :xs="{span: 0}" :sm="{span: 3}" :md="{span: 3}" :lg="{span: 3}" :span="3" class="float-right" v-if="isLogin">
         <el-dropdown @command="onDropdownClick" trigger="click" class="flex flex-align--middle">
           <Avatar username="johnjohn"></Avatar>
           <el-dropdown-menu slot="dropdown">
@@ -25,6 +25,16 @@
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
+      <el-col :xs="{span: 2}" :sm="{span: 0}" :md="{span: 0}" :lg="{span: 0}" :span="2">
+        <div style="height: 60px;" class="flex flex-align--middle">
+          <i class="typcn typcn-th-menu"></i>
+        </div>
+      </el-col>
+      <el-col :xs="{span: 2}" :sm="{span: 0}" :md="{span: 0}" :lg="{span: 0}" :span="2">
+        <div style="height: 60px;" class="flex flex-align--middle">
+          <i class="typcn typcn-edit"></i>
+        </div>
+      </el-col>
     </el-row>
     <Signup></Signup>
     <Login></Login>
@@ -32,6 +42,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Avatar from '@/components/Avatar'
 import Signup from '@/components/Signup'
 import Login from '@/components/Login'
@@ -56,9 +67,9 @@ export default {
     }
   },
   computed: {
-    isLogin () {
-      return Object.prototype.toString.call(this.$store.state.user) !== '[object Null]'
-    }
+    ...mapGetters([
+      'isLogin'
+    ])
   }
 }
 </script>
@@ -71,6 +82,12 @@ export default {
 @media screen and (max-width: 61.999em) {
   nav {
     border-bottom: solid 1px #E5E9F2;
+
+    .el-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 </style>

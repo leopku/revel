@@ -2,20 +2,35 @@
 * @Author: leo
 * @Date:   2017-06-23 13:22:20
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-28 01:17:17
+* @Last Modified time: 2017-06-29 00:19:55
 */
 
 'use strict'
 
 import Vue from 'vue'
 import { Message, Notification } from 'element-ui'
+import * as types from '../mutation-types'
+
+const state = {
+  loading: false,
+  loaded: false,
+  isSignupVisible: false,
+  isLoginVisible: false
+}
+
+const getters = {
+  authLoading: state => state.loading,
+  authLoaded: state => state.loaded,
+  isSignupVisible: state => state.isSignupVisible,
+  isLoginVisible: state => state.isLoginVisible
+}
 
 const mutations = {
-  AUTH (state) {
+  [types.AUTH_REQUEST] (state) {
     state.loading = true
     state.error = null
   },
-  AUTH_SUCCESS (state, payload) {
+  [types.AUTH_SUCCESS] (state, payload) {
     state.loading = false
     state.loaded = true
     state.user = payload.user
@@ -23,7 +38,7 @@ const mutations = {
     state.isLoginVisible = false
     state.isSignupVisible = false
     if (payload.action) {
-      const msg = payload.action === 'signup' ? '欢迎来到西部世界，请登入核对身份' : '梅芙终于搭乘了离开西部世界的电梯。然而，在她踏上列车时，被眼前的一个景象触动了，梅芙毅然决定回去西部世界，她要。。。'
+      const msg = payload.action === 'signup' ? '欢迎来到西部世界，请登入核对身份' : '梅芙终于搭乘了离开西部世界的电梯。然而，在她踏上列车时，被眼前的一个景象触动了，梅芙毅然决定回去西部世界，她要...'
       if (payload.action === 'logout') {
         Notification.warning({
           message: msg
@@ -41,7 +56,7 @@ const mutations = {
       })
     }
   },
-  AUTH_FAILED (state, { error }) {
+  [types.AUTH_FAILED] (state, { error }) {
     console.dir(error)
     state.loading = false
     state.loaded = false
@@ -55,38 +70,49 @@ const mutations = {
       duration: 0,
       showClose: true
     })
+  },
+  [types.HIDE_SIGNUP_DIALOG] (state) {
+    state.isSignupVisible = false
+  },
+  [types.HIDE_LOGIN_DIALOG] (state) {
+    state.isLoginVisible = false
   }
 }
 
 const actions = {
-  signup ({ commit, state }, user) {
-    commit('AUTH')
+  signup ({ commit }, user) {
+    commit(types.AUTH_REQUEST)
     Vue.axios.post('/functions/signup', user)
       // .then(response => response.data)
-      .then(user => commit('AUTH_SUCCESS', { user: null, action: 'signup' }))
-      .catch(error => commit('AUTH_FAILED', { error }))
+      .then(() => commit(types.AUTH_SUCCESS, { user: null, action: 'signup' }))
+      .catch(error => commit(types.AUTH_FAILED, { error }))
   },
   login ({ commit }, user) {
-    commit('AUTH')
+    commit(types.AUTH_REQUEST)
     return Vue.axios.get('/login', { params: user })
       .then(response => response.data)
-      .then(user => commit('AUTH_SUCCESS', { user }))
-      .catch(error => commit('AUTH_FAILED', { error }))
+      .then(user => commit(types.AUTH_SUCCESS, { user }))
+      .catch(error => commit(types.AUTH_FAILED, { error }))
   },
   me ({ commit }) {
-    commit('AUTH')
+    commit(types.AUTH_REQUEST)
     return Vue.axios.get('/users/me')
       .then(response => response.data)
-      .then(user => commit('AUTH_SUCCESS', { user }))
-      .catch(error => commit('AUTH_FAILED', { error }))
+      .then(user => commit(types.AUTH_SUCCESS, { user }))
+      .catch(error => commit(types.AUTH_FAILED, { error }))
   },
   logout ({ commit }) {
     console.log('logout action')
-    commit('AUTH')
+    commit(types.AUTH_REQUEST)
     Vue.axios.post('/logout')
-      .then(() => commit('AUTH_SUCCESS', { user: null, action: 'logout' }))
-      .catch(error => commit('AUTH_FAILED', { error }))
+      .then(() => commit(types.AUTH_SUCCESS, { user: null, action: 'logout' }))
+      .catch(error => commit(types.AUTH_FAILED, { error }))
   }
 }
 
-export { mutations, actions }
+export default {
+  state,
+  getters,
+  mutations,
+  actions
+}

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="登入" :visible="isLoginVisible()" :before-close="onBeforeClose" size="tiny">
+    <el-dialog title="登入" :visible="isLoginVisible" :before-close="onBeforeClose" size="tiny">
       <el-form :model="user">
         <el-form-item>
           <el-input v-model="user.username" placeholder="username"></el-input>
@@ -8,7 +8,7 @@
           <el-input v-model="user.password" placeholder="password"></el-input>
         </el-form-item>
       </el-form>
-        <el-button :loading="loading()" type="primary" class="full--width" @click="login(user)">登 入</el-button>
+        <el-button :loading="authLoading" type="primary" class="full--width" @click="login(user)">登 入</el-button>
       <div slot="footer" class="dialog-footer">
         <a>Forgot password?</a><br>
         Don't have an account? <a>Sign Up</a>
@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import { HIDE_LOGIN_DIALOG } from '@/store/mutation-types'
 
 export default {
   name: 'login',
@@ -34,14 +35,16 @@ export default {
     ...mapActions([
       'login'
     ]),
-    ...mapState([
-      'loading',
-      'isLoginVisible'
-    ]),
     onBeforeClose (done) {
-      this.$store.state.isLoginVisible = false
+      this.$store.commit(HIDE_LOGIN_DIALOG)
       done()
     }
+  },
+  computed: {
+    ...mapGetters([
+      'authLoading',
+      'isLoginVisible'
+    ])
   }
 }
 </script>
