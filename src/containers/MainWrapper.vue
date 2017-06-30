@@ -9,7 +9,7 @@
         <div
           class="full-width flex flex-justify--center"
           style="padding-top: 1em;"
-          v-loading="isLoading"
+          v-loading="topicLoading"
           :element-loading-text="loadingMsg"
            @click="onLoadMoreClick">
           <el-tag type="gray">载入更多</el-tag>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import MinorWrapper from '@/containers/MinorWrapper'
 import MajorWrapper from '@/containers/MajorWrapper'
 
@@ -31,7 +32,7 @@ export default {
   },
   data () {
     return {
-      isLoading: false,
+      // isLoading: false,
       loadingMsgs: [
         '欢迎乘坐西部世界专列',
         '正在赶往 黄昏天台',
@@ -47,6 +48,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'topicLoading'
+    ]),
     loadingMsg () {
       const idx = Math.floor(Math.random() * this.loadingMsgs.length)
       return this.loadingMsgs[idx]
@@ -54,10 +58,11 @@ export default {
   },
   methods: {
     onLoadMoreClick (evt) {
-      this.isLoading = true
-      setTimeout(() => {
-        this.isLoading = false
-      }, 3000)
+      this.$store.dispatch('load_more_topics')
+      // this.isLoading = true
+      // setTimeout(() => {
+      //   this.isLoading = false
+      // }, 3000)
     }
   }
 }

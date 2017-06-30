@@ -2,18 +2,18 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-30 11:10:07
+* @Last Modified time: 2017-06-30 20:08:18
 */
 
 'use strict'
 
-import Vue from 'vue'
 import { Message } from 'element-ui'
-import { deepCopy } from '@/util'
 import * as types from '../mutation-types'
+import client from '@/client'
 
 const state = {
   all: [],
+  limit: 1,
   skip: 0,
   loading: false
 }
@@ -33,6 +33,12 @@ const mutations = {
     state.loaded = true
     state.all = topics
   },
+  [types.TOPIC_LOAD_MORE] (state, { newTopics }) {
+    state.loading = false
+    state.loaded = true
+    state.all.push(...newTopics)
+    state.skip = state.skip + state.limit
+  },
   [types.TOPIC_LOAD_FAILED] (state, { error }) {
     state.loading = false
     state.loaded = false
@@ -47,83 +53,30 @@ const mutations = {
 }
 
 const actions = {
-  test_topics ({ commit }) {
-    Vue.axios.get('/classes/Topic', {
-      params: {
-        include: 'author'
-      }
-    })
-      .then(response => console.log(response.data))
-  },
-  load_topics ({ commit }) {
+  load_more_topics ({ commit, state }, options = {}) {
     commit(types.TOPIC_LOAD)
-    Vue.axios.get('/classes/Topic', {
-      params: {
-        include: 'author'
+    let params = options
+    console.log(params)
+    params['skip'] = state.skip + state.limit
+    client.getTopics(params)
+      .then(topics => commit(types.TOPIC_LOAD_MORE, { newTopics: topics }))
+      .catch(error => commit(types.TOPIC_LOAD_FAILED, { error }))
+  },
+  load_topics ({ commit, state }, options = {}) {
+    commit(types.TOPIC_LOAD)
+    void ['limit', 'skip', 'order', 'include'].forEach(key => {
+      if (!options.hasOwnProperty(key) && state.hasOwnProperty(key)) {
+        options[key] = state[key]
       }
     })
-      .then(response => response.data)
-      .then(data => data.results)
-      .then(topicArray => {
-        if (!Array.isArray(topicArray)) {
-          return Promise.reject(new Error('Result of topics is not an array'))
-        }
-        if (topicArray.length > 0) {
-          const topics = topicArray.map(topic => {
-            // load repliedBy
-            /* load tags */
-            if (topic.tags) {
-              topic.tagObject = deepCopy(topic.tags)
-              delete topic.tags
-              Vue.set(topic, 'tags', [])
-              getRelationsRelatedTo(topic.tagObject.className, topic, 'Topic', 'tags')
-                .then(results => { topic.tags = results })
-                .catch(error => console.log(error.message))
-            }
-
-            return topic
-          })
-          commit(types.TOPIC_LOAD_SUCCESS, { topics })
-        } else {
-          commit(types.TOPIC_LOAD_SUCCESS, { topics: [] })
-        }
-      })
+    // if (!options.limit) { options.limit = state.limit }
+    // if (!options.skip) { options.skip = state.skip }
+    // if (!options.order) { options.skip = state.skip }
+    client.getTopics(options)
+      .then(topics => commit(types.TOPIC_LOAD_SUCCESS, { topics }))
       .catch(error => commit(types.TOPIC_LOAD_FAILED, { error }))
   }
 }
-
-/**
- * Get target object relations according key of source object.someProp
- *
- * @param {String} targetClass
- * @param {Object} sourceObject
- * @param {String} sourceObjectClass
- * @param {String} key
- * @return {Promise}
- */
-function getRelationsRelatedTo (targetClass, sourceObject, sourceObjectClass, key) {
-  return Vue.axios.get('/classes/' + targetClass, {
-    params: {
-      where: {
-        '$relatedTo': {
-          object: {
-            '__type': 'Pointer',
-            className: sourceObjectClass,
-            objectId: sourceObject.objectId
-          },
-          key: key
-        }
-      }
-    }
-  })
-    .then(response => response.data)
-    .then(data => data.results)
-}
-
-// function getPointer (targetObject /* { className: 'SampleClass'}, objectId: '123456' */, sourceObject, key) {
-//   return Vue.axios.get(`/classes/${targetObject.className}/${targetObject.objectId}`)
-//       .then(response => response.data)
-// }
 
 export default {
   state,

@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-27 19:20:30
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-29 16:46:34
+* @Last Modified time: 2017-06-30 13:43:05
 */
 'use strict'
 
@@ -19,4 +19,7 @@ Parse.Cloud.define('signup', (req, res) => {
     .then(response => console.log(response))
     .catch(error => console.log(error.message))
   return res.success('Sign up successfully')
+  //   .then(response => res.success(response))
+  //   .catch(error => res.error(error))
+  // return res.success('Function run successfully')
 })
