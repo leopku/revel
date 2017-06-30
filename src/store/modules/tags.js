@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-23 13:22:20
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-28 23:28:32
+* @Last Modified time: 2017-06-30 23:53:47
 */
 
 'use strict'
@@ -49,9 +49,16 @@ const mutations = {
 
 const actions = {
   load_category ({ commit }) {
-    console.log('load categories')
     commit(types.CATEGORY_LOAD)
-    Vue.axios.get('/classes/Tag')
+    Vue.axios.get('/classes/Tag', {
+      params: {
+        where: {
+          'color': {
+            '$exists': true
+          }
+        }
+      }
+    })
       .then(response => response.data)
       .then(data => data.results)
       .then(tags => commit(types.CATEGORY_LOAD_SUCCESS, { tags }))

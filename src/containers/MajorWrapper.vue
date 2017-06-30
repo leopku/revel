@@ -12,7 +12,11 @@
               <div class="button-flat bg-gray--light flex flex-justify--center flex-align--middle"><i class="typcn typcn-arrow-sync"></i></div>
             </div>
           </el-col>
-          <el-col :span="23" class="topics">
+          <el-col
+            :span="23"
+            class="topics"
+            v-loading="topicLoading"
+            @click="onRefreshClick">
             <TopicListItem v-for="(topic, index) in topics" :topic="topic" :key="index"></TopicListItem>
           </el-col>
         </el-row>
@@ -30,6 +34,8 @@ export default {
   },
   data () {
     return {
+      field: 'createdAt',
+      descend: false,
       options: [{
         value: 'latest',
         label: '最新回复'
@@ -53,13 +59,53 @@ export default {
     this.$store.dispatch('load_topics')
   },
   methods: {
+    onRefreshClick (evt) {
+      // this.$store.dispatch
+    },
     onChange (value) {
-      console.log(value)
+      let field = ''
+      let descend = false
+      switch (value[0]) {
+        case 'latest':
+          field = 'repliedAt'
+          descend = true
+          break
+        case 'top':
+          field = 'replyCount'
+          break
+        case 'newest':
+          field = 'createdAt'
+          descend = true
+          break
+        case 'oldest':
+          field = 'createdAt'
+          descend = false
+          break
+        default:
+          field = ''
+          descend = false
+      }
+
+      // TODO: real sorting by selected type
+      // TODO: resort by watching this.field & this.descend reactively
+      if (field !== this.field || descend !== this.descend) {
+        if (field === 'createdAt') {
+          this.field = field
+          this.descend = descend
+          this.$store.dispatch('sort_topics', { field, descend })
+        } else {
+          this.$message({
+            message: '暂未实现',
+            type: 'warning'
+          })
+        }
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'topics'
+      'topics',
+      'topicLoading'
     ])
   }
 }

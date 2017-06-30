@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-23 13:22:20
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-29 00:19:55
+* @Last Modified time: 2017-06-30 21:00:47
 */
 
 'use strict'
@@ -102,7 +102,6 @@ const actions = {
       .catch(error => commit(types.AUTH_FAILED, { error }))
   },
   logout ({ commit }) {
-    console.log('logout action')
     commit(types.AUTH_REQUEST)
     Vue.axios.post('/logout')
       .then(() => commit(types.AUTH_SUCCESS, { user: null, action: 'logout' }))

@@ -11,7 +11,7 @@
           style="padding-top: 1em;"
           v-loading="topicLoading"
           :element-loading-text="loadingMsg"
-           @click="onLoadMoreClick">
+          @click="onLoadMoreClick">
           <el-tag type="gray">载入更多</el-tag>
         </div>
       </el-col>

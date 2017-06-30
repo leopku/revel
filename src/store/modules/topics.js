@@ -2,18 +2,20 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-30 20:08:18
+* @Last Modified time: 2017-06-30 23:17:36
 */
 
 'use strict'
 
+import Vue from 'vue'
+import Lazy from 'lazy.js'
 import { Message } from 'element-ui'
 import * as types from '../mutation-types'
 import client from '@/client'
 
 const state = {
   all: [],
-  limit: 1,
+  limit: 10,
   skip: 0,
   loading: false
 }
@@ -49,6 +51,15 @@ const mutations = {
       duration: 0,
       showClose: true
     })
+  },
+  [types.TOPIC_RESORT] (state,
+    {
+      field = 'createdAt',
+      descend = false
+    } = {}) {
+    const newTopics = Lazy(state.all).sortBy(topic => topic[field], descend).toArray()
+
+    Vue.set(state, 'all', newTopics)
   }
 }
 
@@ -64,17 +75,22 @@ const actions = {
   },
   load_topics ({ commit, state }, options = {}) {
     commit(types.TOPIC_LOAD)
-    void ['limit', 'skip', 'order', 'include'].forEach(key => {
-      if (!options.hasOwnProperty(key) && state.hasOwnProperty(key)) {
-        options[key] = state[key]
+    Lazy(['limit', 'skip', 'order', 'include']).each(item => {
+      if (!options.hasOwnProperty(item) && state.hasOwnProperty(item)) {
+        options[item] = state[item]
       }
     })
-    // if (!options.limit) { options.limit = state.limit }
-    // if (!options.skip) { options.skip = state.skip }
-    // if (!options.order) { options.skip = state.skip }
+    // void ['limit', 'skip', 'order', 'include'].forEach(key => {
+    //   if (!options.hasOwnProperty(key) && state.hasOwnProperty(key)) {
+    //     options[key] = state[key]
+    //   }
+    // })
     client.getTopics(options)
       .then(topics => commit(types.TOPIC_LOAD_SUCCESS, { topics }))
       .catch(error => commit(types.TOPIC_LOAD_FAILED, { error }))
+  },
+  sort_topics ({ commit }, order) {
+    commit(types.TOPIC_RESORT, order)
   }
 }
 

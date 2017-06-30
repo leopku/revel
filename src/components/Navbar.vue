@@ -58,7 +58,6 @@ export default {
     onDropdownClick (cmd) {
       switch (cmd) {
         case 'logout':
-          console.log('logout')
           this.$store.dispatch('logout')
           break
         default:
