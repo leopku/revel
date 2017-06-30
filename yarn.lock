@@ -3518,6 +3518,10 @@ lazy-cache@^1.0.3:
   version "1.0.4"
   resolved "http://registry.npm.taobao.org/lazy-cache/download/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
 
+lazy.js@^0.5.0:
+  version "0.5.0"
+  resolved "http://registry.npm.taobao.org/lazy.js/download/lazy.js-0.5.0.tgz#d8a02be135806fcbbcd7999513d8b6faf9857550"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/lcid/download/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
