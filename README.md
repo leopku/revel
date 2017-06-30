@@ -1,8 +1,8 @@
 # Revel
 
-A forum inspired by flarum and based on nodejs.
+Revel is an elegant forum or knowledge sharing system base on NodeJS especially VueJS and Parse-Server
 
-Revel as powered by vue, element-ui and parse-server
+Revel is inspired by flarum
 
 # Links
 
