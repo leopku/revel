@@ -1,0 +1,8 @@
+{
+  "port": 1337,
+  "appId": "revel",
+  "masterKey": "REVEL_MASTER",
+  "mountPath": "/revel",
+  "allowClientClassCreation": false,
+  "userSensitiveFields": ["email","phone"]
+}

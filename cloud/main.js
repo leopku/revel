@@ -2,11 +2,11 @@
 * @Author: leopku
 * @Date:   2017-06-27 19:20:30
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-28 00:09:14
+* @Last Modified time: 2017-06-29 16:46:34
 */
-
 'use strict'
 
+/* global Parse */
 Parse.Cloud.define('hello', (req, res) => res.success('Hi'))
 
 Parse.Cloud.define('signup', (req, res) => {
@@ -16,7 +16,7 @@ Parse.Cloud.define('signup', (req, res) => {
   user.set('email', req.params.email)
   user.set('password', req.params.password)
   user.signUp(null, {useMasterKey: true})
-    .then(response => response)
+    .then(response => console.log(response))
     .catch(error => console.log(error.message))
   return res.success('Sign up successfully')
 })

@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-22 22:55:44
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-28 23:57:57
+* @Last Modified time: 2017-06-29 16:56:10
 */
 
 'use strict'
@@ -16,6 +16,7 @@ import * as Cookies from 'js-cookie'
 
 import auth from './modules/auth'
 import tags from './modules/tags'
+import topics from './modules/topics'
 
 const appName = 'revel'
 
@@ -39,7 +40,8 @@ const store = new Vuex.Store({
   actions,
   modules: {
     auth,
-    tags
+    tags,
+    topics
   },
   plugins: [createPersistedState({
     key: appName,

@@ -9,3 +9,7 @@ test/e2e/reports
 selenium-debug.log
 logs/
 Procfile
+ecosystem.json
+parse-dashboard.json
+parse-server.json
+nodemon.json

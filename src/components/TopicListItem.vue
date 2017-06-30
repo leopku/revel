@@ -1,24 +1,24 @@
 <template>
   <section class="topic-list-item flex">
-    <Avatar :username="repliedBy.username" :avatar="repliedBy.avatar"></Avatar>
+    <Avatar :username="topic.author.username" :avatar="topic.author.avatar"></Avatar>
     <div class="topic">
       <el-row>
         <el-col class="flex flex-justify--between">
           <div>
-            <p class="text-regular title">{{topic.title}}</p>
+            <p class="text-regular title" v-once>{{topic.title}}</p>
 
             <p class="text-assist--small fg-silver">
-              <span class="tags-left"><el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :class="tag.cls">{{tag.title}}</el-tag></span>
-              <i class="typcn typcn-arrow-back"></i> {{topic.repliedBy.username}} 回复于 {{topic.repliedAt}} 天前
+              <span class="tags-left"><el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :style="'background-color: ' + tag.color + ';'">{{tag.title}}</el-tag></span>
+              <i class="typcn typcn-arrow-back" v-once></i> {{topic.author.username}} 回复于  天前
             </p>
           </div>
           <div class="tags-right flex flex-align--baseline">
-            <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :class="tag.cls">{{tag.title}}</el-tag>
+            <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :style="'background-color: ' + tag.color + ';'">{{tag.title}}</el-tag>
           </div>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="24" class="fg-silver--light">{{topic.content}}</el-col>
+        <el-col :span="24" class="fg-silver--light" v-once>{{topic.content}}</el-col>
       </el-row>
     </div>
     <div class="reply-wrapper flex flex-direction--column flex-justify--center flex-align--middle">
@@ -35,11 +35,12 @@
 import Avatar from '@/components/Avatar'
 
 export default {
-  name: 'topic',
+  name: 'topic-list-item',
   props: {
     topic: {
       type: Object,
-      required: true
+      required: true,
+      default: { author: { username: '' } }
     }
   },
   components: {
@@ -47,7 +48,7 @@ export default {
   },
   data () {
     return {
-      repliedBy: this.topic.repliedBy
+      //
     }
   }
 }
@@ -80,7 +81,7 @@ export default {
 
     .tags-right {
       white-space: nowrap;
-      max-width: 98px;
+      max-width: 10em;
       overflow: hidden;
 
       .el-tag {

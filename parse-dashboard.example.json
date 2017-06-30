@@ -1,0 +1,8 @@
+{
+  "apps": [{
+    "serverURL": "http://localhost:1337/revel",
+    "appId": "revel",
+    "masterKey": "REVEL_MASTER",
+    "appName": "Revel"
+  }]
+}

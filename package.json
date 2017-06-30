@@ -5,6 +5,8 @@
   "author": "leopku <leopku@qq.com>",
   "private": true,
   "scripts": {
+    "parse": "nodemon",
+    "dashboard":  "parse-dashboard --config parse-dashboard.json",
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",

@@ -34,6 +34,20 @@ html, body {
   background-color: #e8ecf3;
 }
 
+.no-border {
+  border-width: 0;
+}
+
+.full--width {
+  width: 100%;
+}
+
+/** float **/
+.float-right {
+  float: right;
+}
+
+/** fg/bg **/
 .fg-white {
   color: #fff;
 }
@@ -99,14 +113,7 @@ html, body {
   background-color: rgb(154, 206, 199);
 }
 
-.no-border {
-  border-width: 0;
-}
-
-.full--width {
-  width: 100%;
-}
-
+/** text **/
 .text-emphasis--big {
   font-size: 2em; // 24px
 }
@@ -143,10 +150,7 @@ html, body {
   font-size: 0.667em; // 8px
 }
 
-.float-right {
-  float: right;
-}
-
+/** flexbox **/
 .flex {
   display: flex;
 }
@@ -183,6 +187,22 @@ html, body {
   align-items: baseline;
 }
 
+/* animate */
+.transition-width {
+  transition: width 10s ease-out;
+  -webkit-transition: width 10s ease-out;
+}
+
+/* hack*/
+/** element-ui **/
+.el-menu-item:hover {
+  background-color: transparent;
+}
+
+.el-menu--horizontal>.el-menu-item:hover {
+  border-bottom: 0 solid transparent;
+}
+
 @media screen and (max-width: 47.99em) {
   .el-col-xs-0 {
     display: none;
@@ -207,12 +227,8 @@ html, body {
   }
 }
 
+/** typicon **/
 .typcn:before {
   font-size: 1.833em;
-}
-
-.transition-width {
-  transition: width 10s ease-out;
-  -webkit-transition: width 10s ease-out;
 }
 </style>
