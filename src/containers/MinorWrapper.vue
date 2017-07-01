@@ -3,10 +3,10 @@
     <el-row>
       <el-col class="minor">
         <div class="minor-inner">
-          <el-button class="fg-white bg--dark no-border" size="large">新的话题</el-button>
+          <el-button class="fg-white bg--dark no-border" size="large" @click="this.$message({ message: '暂未实现', type: 'warning' })">新的话题</el-button>
           <el-menu theme="light" class="bg--white" :mode="menuMode">
             <el-menu-item index="1"><i class="typcn typcn-messages" style="font-size: .8em;"></i> 所有话题</el-menu-item>
-            <el-menu-item index="2"><i class="typcn typcn-th-large-outline"></i> 分类</el-menu-item>
+            <el-menu-item index="2"><i class="typcn typcn-th-large-outline" style="font-size: .8em;"></i> 分类</el-menu-item>
             <el-menu-item v-for="(tag, index) in tags" :index="index+'2'" :key="index+2">
               <i class="tag-icon" :style="'background-color: ' + tag.color +';'"></i> {{ tag.title }}
             </el-menu-item>
@@ -97,7 +97,7 @@ export default {
     }
 
     .el-menu-item {
-      padding-top: 2em;
+      padding-top: 1em;
       padding-left: 0;
     }
   }

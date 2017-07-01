@@ -195,6 +195,11 @@ html, body {
 
 /* hack*/
 /** element-ui **/
+.el-button:hove {
+  color: transparent;
+  border-color: transparent;
+}
+
 .el-menu-item:hover {
   background-color: transparent;
 }
