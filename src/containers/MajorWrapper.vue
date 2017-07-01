@@ -33,7 +33,7 @@ export default {
   data () {
     return {
       topicsRefreshing: false,
-      refreshingMessage: this.$store.state.unopenning,
+      refreshingMessage: this.$store.state.common.unopenning,
       field: 'createdAt',
       descend: false,
       options: [{
@@ -98,7 +98,7 @@ export default {
           this.$store.dispatch('sort_topics', { field, descend })
         } else {
           this.$message({
-            message: this.$store.state.unopenning,
+            message: this.$store.state.common.unopenning,
             type: 'warning'
           })
         }
@@ -138,12 +138,14 @@ export default {
 }
 
 .button-flat {
-  height: 3.167em;
-  width: 3.167em;
+  // height: 3.167em;
+  // width: 3.167em;
+  height: 2.9em;
+  width: 2.9em;
   border-radius: 4px;
 
   i {
-    font-size: 1.3em;
+    font-size: 1em;
   }
 }
 </style>

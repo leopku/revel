@@ -41,7 +41,7 @@ export default {
   methods: {
     onNewTopic () {
       this.$message({
-        message: this.$store.state.unopenning,
+        message: this.$store.state.common.unopenning,
         type: 'warning'
       })
     },
@@ -103,8 +103,9 @@ export default {
     }
 
     .el-menu-item {
-      padding-top: 1em;
-      padding-left: 0;
+      margin-top: 1em;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
     }
   }
 }

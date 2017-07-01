@@ -22,7 +22,7 @@ export default {
 <style lang="scss">
 html, body {
   color: #5e6d82;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .tag-icon {
@@ -33,6 +33,12 @@ html, body {
   vertical-align: -3px;
   background-color: #e8ecf3;
 }
+
+// not used
+.btn-size--regular {
+  height: 2.9em;
+}
+//
 
 .no-border {
   border-width: 0;
@@ -200,7 +206,7 @@ html, body {
   border-color: transparent;
 }
 
-.el-menu-item:hover {
+.el-menu-item:hover, el-menu-item:focus {
   background-color: transparent;
 }
 
