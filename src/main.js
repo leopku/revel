@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
+import VueAnalytics from 'vue-analytics'
 import 'element-ui/lib/theme-default/reset.css'
 import 'element-ui/lib/theme-default/index.css'
 import 'typicons.font/src/font/typicons.css'
@@ -22,4 +23,9 @@ new Vue({
   store,
   template: '<App/>',
   components: { App }
+})
+
+Vue.use(VueAnalytics, {
+  id: 'UA-6386885-5',
+  router
 })
