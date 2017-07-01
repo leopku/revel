@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-30 22:01:20
+* @Last Modified time: 2017-07-01 14:43:55
 */
 
 'use strict'
@@ -11,6 +11,14 @@ import Vue from 'vue'
 import Lazy from 'lazy.js'
 import { deepCopy } from '@/util'
 
+/**
+ * @param  {Number} limit
+ * @param  {Number} skip
+ * @param  {String} order
+ * @param  {String} include
+ * @return {Promise}
+ * @chainable true
+ */
 function getTopics (
   {
     limit = 20,
@@ -58,6 +66,7 @@ function getTopics (
  * @param {String} sourceObjectClass
  * @param {String} key
  * @return {Promise}
+ * @chainable true
  */
 function getRelationsRelatedTo (
   {
@@ -90,7 +99,13 @@ function getRelationsRelatedTo (
     .then(data => data.results)
 }
 
-function getPointer (targetObject /* { className: 'SampleClass'}, objectId: '123456' */, sourceObject, key) {
+/**
+ * @param  {Object} targetObject { className: 'SampleClass', objectId: '123456'}
+ * @param  {Object} sourceObject
+ * @param  {String} key
+ * @return {Promise}
+ */
+function getPointer (targetObject, sourceObject, key) {
   return Vue.axios.get(`/classes/${targetObject.className}/${targetObject.objectId}`)
       .then(response => response.data)
 }
