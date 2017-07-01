@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-23 13:22:20
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-30 21:00:47
+* @Last Modified time: 2017-07-01 23:29:24
 */
 
 'use strict'
@@ -57,7 +57,6 @@ const mutations = {
     }
   },
   [types.AUTH_FAILED] (state, { error }) {
-    console.dir(error)
     state.loading = false
     state.loaded = false
     state.user = null

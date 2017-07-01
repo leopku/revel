@@ -3,7 +3,7 @@
     <el-row>
       <el-col class="minor">
         <div class="minor-inner">
-          <el-button class="fg-white bg--dark no-border" size="large" @click="this.$message({ message: '暂未实现', type: 'warning' })">新的话题</el-button>
+          <el-button class="fg-white bg--dark no-border" size="large" @click="onNewTopic">新的话题</el-button>
           <el-menu theme="light" class="bg--white" :mode="menuMode">
             <el-menu-item index="1"><i class="typcn typcn-messages" style="font-size: .8em;"></i> 所有话题</el-menu-item>
             <el-menu-item index="2"><i class="typcn typcn-th-large-outline" style="font-size: .8em;"></i> 分类</el-menu-item>
@@ -39,6 +39,12 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onNewTopic () {
+      this.$message({
+        message: this.$store.state.unopenning,
+        type: 'warning'
+      })
+    },
     onResize () {
       this.menuMode = this.mq.matches ? 'horizontal' : 'vertical'
     }

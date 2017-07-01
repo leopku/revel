@@ -9,14 +9,12 @@
                 v-model="selectedOptions"
                 @change="onChange" id="sortSelect">
               </el-cascader>
-              <div class="button-flat bg-gray--light flex flex-justify--center flex-align--middle"><i class="typcn typcn-arrow-sync"></i></div>
+              <div class="button-flat bg-gray--light flex flex-justify--center flex-align--middle" @click="onRefreshClick">
+                <i class="typcn typcn-arrow-sync"></i>
+              </div>
             </div>
           </el-col>
-          <el-col
-            :span="23"
-            class="topics"
-            v-loading="topicLoading"
-            @click="onRefreshClick">
+          <el-col :span="23" class="topics" v-loading="topicsRefreshing" :element-loading-text="refreshingMessage">
             <TopicListItem v-for="(topic, index) in topics" :topic="topic" :key="index"></TopicListItem>
           </el-col>
         </el-row>
@@ -34,6 +32,8 @@ export default {
   },
   data () {
     return {
+      topicsRefreshing: false,
+      refreshingMessage: this.$store.state.unopenning,
       field: 'createdAt',
       descend: false,
       options: [{
@@ -60,7 +60,10 @@ export default {
   },
   methods: {
     onRefreshClick (evt) {
-      // this.$store.dispatch
+      this.topicsRefreshing = true
+      setTimeout(() => {
+        this.topicsRefreshing = false
+      }, 2000)
     },
     onChange (value) {
       let field = ''
@@ -95,7 +98,7 @@ export default {
           this.$store.dispatch('sort_topics', { field, descend })
         } else {
           this.$message({
-            message: '暂未实现',
+            message: this.$store.state.unopenning,
             type: 'warning'
           })
         }
@@ -104,8 +107,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'topics',
-      'topicLoading'
+      'topics'
     ])
   }
 }
