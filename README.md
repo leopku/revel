@@ -6,4 +6,4 @@ Revel is inspired by flarum
 
 # Links
 
-* 蚂蚁云盘 https://antbox.io - 一个使用 Go 和 vue 编写，与 S3 兼容的云盘
+* 蚂蚁云盘 https://antbox.io - 一个使用 Go 和 vue 编写，与 S3 兼容的云盘。只有一个执行文件。
