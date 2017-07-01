@@ -195,8 +195,8 @@ html, body {
 
 /* hack*/
 /** element-ui **/
-.el-button:hove {
-  color: transparent;
+.el-button:hover, .el-button:focus {
+  color: white;
   border-color: transparent;
 }
 
