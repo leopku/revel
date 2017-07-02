@@ -8,9 +8,9 @@ ENV PARSE_SERVER_DATABASE_URI=mongodb://mongo/revel
 
 RUN npm install --registry=${NPM_REGISTRY} -g parse-server parse-dashboard
 
-ADD ./process.yml /app/
-ADD ./parse-server.json /app/
-ADD ./parse-dashboard.json /app/
+ADD ./process.sample.yml /app/process.yml
+ADD ./parse-server.sample.json /app/parse-server.json
+ADD ./parse-dashboard.sample.json /app/parse-dashboard.json
 ADD ./cloud /app/cloud
 
 VOLUME ["/app"]
