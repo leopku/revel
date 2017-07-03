@@ -13,14 +13,14 @@
       </el-form>
         <el-button :loading="authLoading" type="primary" class="full--width" size="large" @click="signup(user)">注 册</el-button>
       <div slot="footer" class="dialog-footer">
-        Already have a account? <a >Login in</a>
+        Already have a account? <a @click="onLoginClick">Login</a>
       </div>
     </el-dialog>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { HIDE_SIGNUP_DIALOG } from '@/store/mutation-types'
+import { SWITCH_SIGNUP_DIALOG, SWITCH_LOGIN_DIALOG } from '@/store/mutation-types'
 
 export default {
   name: 'signup',
@@ -37,8 +37,12 @@ export default {
     ...mapActions([
       'signup'
     ]),
+    onLoginClick () {
+      this.$store.commit(SWITCH_SIGNUP_DIALOG, false)
+      this.$store.commit(SWITCH_LOGIN_DIALOG, true)
+    },
     onBeforeClose (done) {
-      this.$store.commit(HIDE_SIGNUP_DIALOG)
+      this.$store.commit(SWITCH_SIGNUP_DIALOG, false)
       done()
     }
   },

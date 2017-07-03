@@ -11,8 +11,8 @@
       <el-col :xs="{span: 0}" :sm="{span: 5}" :md="{span: 5}" :lg="{span: 5}" :span="5" class="float-right" v-show="!isLogin">
         <el-menu theme="light" mode="horizontal" class="bg--white">
           <!-- <el-menu-item index="1" @click="isSignupVisible=true">注册</el-menu-item> -->
-          <el-menu-item index="1" @click="$store.state.auth.isSignupVisible=true">注册</el-menu-item>
-          <el-menu-item index="2" @click="$store.state.auth.isLoginVisible=true">登入</el-menu-item>
+          <el-menu-item index="1" @click="$store.commit('SWITCH_SIGNUP_DIALOG', true)">注册</el-menu-item>
+          <el-menu-item index="2" @click="$store.commit('SWITCH_LOGIN_DIALOG', true)">登入</el-menu-item>
         </el-menu>
       </el-col>
       <el-col :xs="{span: 0}" :sm="{span: 3}" :md="{span: 3}" :lg="{span: 3}" :span="3" class="float-right" v-if="isLogin">

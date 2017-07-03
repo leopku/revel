@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-23 13:22:20
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-01 23:29:24
+* @Last Modified time: 2017-07-03 18:48:27
 */
 
 'use strict'
@@ -70,11 +70,11 @@ const mutations = {
       showClose: true
     })
   },
-  [types.HIDE_SIGNUP_DIALOG] (state) {
-    state.isSignupVisible = false
+  [types.SWITCH_SIGNUP_DIALOG] (state, visible = true) {
+    state.isSignupVisible = visible
   },
-  [types.HIDE_LOGIN_DIALOG] (state) {
-    state.isLoginVisible = false
+  [types.SWITCH_LOGIN_DIALOG] (state, visible = true) {
+    state.isLoginVisible = visible
   }
 }
 
