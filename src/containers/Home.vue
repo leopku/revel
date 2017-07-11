@@ -1,11 +1,18 @@
 <template>
   <section id="main">
-    <Jumbotron></Jumbotron>
+    <Jumbotron col-class="flex flex-justify--center flex-align--middle flex-direction--column">
+      <section slot="jumbotron-content" class="flex flex-justify--center flex-align--middle flex-direction--column">
+        <p class="text-emphasis">{{ config.forumTitle }}</p>
+        <p class="text-regular" v-html="config.forumDescription"></p>
+      </section>
+    </Jumbotron>
     <MainWrapper></MainWrapper>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Jumbotron from '@/components/Jumbotron'
 import MainWrapper from '@/containers/MainWrapper'
 
@@ -14,6 +21,14 @@ export default {
   components: {
     Jumbotron,
     MainWrapper
+  },
+  created () {
+    this.$store.dispatch('load_jumbotron')
+  },
+  computed: {
+    ...mapGetters([
+      'config'
+    ])
   }
 }
 </script>

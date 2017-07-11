@@ -2,8 +2,8 @@
   <nav class="top-nav">
     <el-row>
       <el-col :xs="{span: 0}" :sm="{span: 16}" :md="{span: 16}" :lg="{span: 16}" :span="16" :offset="1">
-        <el-menu theme="light" mode="horizontal" class="bg--white">
-          <el-menu-item index="1">首页</el-menu-item>
+        <el-menu theme="light" mode="horizontal" class="bg--white" :router="true">
+          <el-menu-item index="/">首页</el-menu-item>
           <el-menu-item index="2">文档</el-menu-item>
           <el-menu-item index="3">下载</el-menu-item>
         </el-menu>

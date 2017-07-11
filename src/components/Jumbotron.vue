@@ -1,11 +1,8 @@
 <template>
   <section id="jumbotron" class="bg-gray--light">
     <el-row>
-      <el-col :xs="{span: 0}" :sm="{span: 0}" :md="{span: 22}" :lg="{span: 22}" :span="22" :offset="1" class="flex flex-justify--center flex-align--middle">
-        <p class="text-emphasis">欢迎访问 Revel 官方论坛</p>
-        <p class="text-regular">不要发布无意义的内容，在你提问前，请务必要阅读《提问的智慧》</p>
-        <p class="text-regular">请避免发表凑字数的内容，请发表完整、有条理的帖子。</p>
-        <p class="text-regular">如果你想感谢别人，请用赞按钮，使用这个功能对发帖人在论坛系统中的信誉有帮助。</p>
+      <el-col :xs="xs" :sm="sm" :md="md" :lg="lg" :span="22" :offset="1" class="jumbotron-inner" :class="colClass" :style="`min-height: ${minHeight};`">
+        <slot name="jumbotron-content"></slot>
       </el-col>
     </el-row>
   </section>
@@ -13,7 +10,33 @@
 
 <script>
 export default {
-  name: 'jumbotron'
+  name: 'jumbotron',
+  props: {
+    xs: {
+      type: [Number, Object],
+      default: 0
+    },
+    sm: {
+      type: [Number, Object],
+      default: 0
+    },
+    md: {
+      type: [Number, Object],
+      default: 22
+    },
+    lg: {
+      type: [Number, Object],
+      default: 22
+    },
+    colClass: {
+      type: String,
+      default: ''
+    },
+    minHeight: {
+      type: String,
+      default: '20vh'
+    }
+  }
 }
 </script>
 
@@ -21,11 +44,13 @@ export default {
 #jumbotron {
   // min-height: 20vh;
   // background-color: #eef1f6;
+  .jumbotron-inner {
+    padding: 1em 0;
+  }
 
   .el-col {
     min-height: 20vh;
     flex-wrap: nowrap;
-    flex-direction: column;
   }
 }
 </style>

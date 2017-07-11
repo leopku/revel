@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-22 22:55:44
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-02 01:00:59
+* @Last Modified time: 2017-07-05 11:05:40
 */
 
 'use strict'
@@ -17,6 +17,7 @@ import * as Cookies from 'js-cookie'
 import auth from './modules/auth'
 import tags from './modules/tags'
 import topics from './modules/topics'
+import jumbotron from './modules/jumbotron'
 
 const appName = 'revel'
 
@@ -48,6 +49,7 @@ const store = new Vuex.Store({
     auth,
     tags,
     topics,
+    jumbotron,
     common
   },
   plugins: [createPersistedState({

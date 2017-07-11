@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-01 14:43:55
+* @Last Modified time: 2017-07-11 19:37:49
 */
 
 'use strict'
@@ -24,7 +24,7 @@ function getTopics (
     limit = 20,
     skip = 0,
     order = '-createdAt',
-    include = 'author'
+    include = 'author,repliedAuthor'
   } = {}) {
   return Vue.axios.get('/classes/Topic', {
     params: {
@@ -58,6 +58,49 @@ function getTopics (
     })
 }
 
+/**
+ * Get tags of a topic
+ * @param  {Object} topic what the topic is
+ * @return {Promise}
+ */
+function getTagsOfTopic (topic) {
+  topic.tagObject = deepCopy(topic.tags)
+  delete topic.tags
+  return this.getRelationsRelatedTo({
+    targetClass: topic.tagObject.className,
+    sourceObject: topic,
+    sourceClassName: 'Topic',
+    key: 'tags',
+    order: '-color'
+  })
+    .then(tags => Vue.set(topic, 'tags', tags))
+    .catch(error => console.log(error.message))
+}
+
+/**
+ * Get an object by ID
+ * @param  {String} options.objectClass Object class name
+ * @param  {String} options.id          ObjectId
+ * @return {Promise}
+ */
+function getObjectById ({ objectClass, id }) {
+  return Vue.axios.get(`/classes/${objectClass}/${id}`)
+    .then(response => response.data)
+    // .then(topic => {
+    //   getTagsOfTopic(topic)
+    //   return topic
+    // })
+}
+
+/**
+ * Get config
+ * @return {Promise}
+ */
+function getConfig () {
+  return Vue.axios.get('/config')
+    .then(response => response.data)
+    .then(data => data.params)
+}
 /**
  * Get target object relations according key of source object.someProp
  *
@@ -111,7 +154,10 @@ function getPointer (targetObject, sourceObject, key) {
 }
 
 export default {
+  getConfig,
   getTopics,
+  getObjectById,
+  getTagsOfTopic,
   getRelationsRelatedTo,
   getPointer
 }

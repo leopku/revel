@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-06-30 23:17:36
+* @Last Modified time: 2017-07-10 19:29:11
 */
 
 'use strict'
@@ -15,12 +15,14 @@ import client from '@/client'
 
 const state = {
   all: [],
+  topic: { tags: [] },
   limit: 10,
   skip: 0,
   loading: false
 }
 
 const getters = {
+  topic: state => state.topic,
   topics: state => state.all,
   topicLoading: state => state.loading
 }
@@ -30,10 +32,11 @@ const mutations = {
     state.loading = true
     state.error = null
   },
-  [types.TOPIC_LOAD_SUCCESS] (state, { topics }) {
+  [types.TOPIC_LOAD_SUCCESS] (state, { topics = [], topic = null } = {}) {
     state.loading = false
     state.loaded = true
     state.all = topics
+    state.topic = topic
   },
   [types.TOPIC_LOAD_MORE] (state, { newTopics }) {
     state.loading = false
@@ -67,7 +70,6 @@ const actions = {
   load_more_topics ({ commit, state }, options = {}) {
     commit(types.TOPIC_LOAD)
     let params = options
-    console.log(params)
     params['skip'] = state.skip + state.limit
     client.getTopics(params)
       .then(topics => commit(types.TOPIC_LOAD_MORE, { newTopics: topics }))
@@ -87,6 +89,16 @@ const actions = {
     // })
     client.getTopics(options)
       .then(topics => commit(types.TOPIC_LOAD_SUCCESS, { topics }))
+      .catch(error => commit(types.TOPIC_LOAD_FAILED, { error }))
+  },
+  load_topic ({ commit }, { id }) {
+    commit(types.TOPIC_LOAD)
+    client.getObjectById({ objectClass: 'Topic', id })
+      .then(topic => {
+        client.getTagsOfTopic(topic)
+        return topic
+      })
+      .then(topic => commit(types.TOPIC_LOAD_SUCCESS, { topic }))
       .catch(error => commit(types.TOPIC_LOAD_FAILED, { error }))
   },
   sort_topics ({ commit }, order) {

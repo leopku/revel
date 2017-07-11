@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-02 18:26:36
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-02 18:27:06
+* @Last Modified time: 2017-07-10 19:24:08
 */
 
 html, body {
@@ -31,6 +31,11 @@ html, body {
 
 .full--width {
   width: 100%;
+}
+
+.hover-background--gray:hover {
+  border-radius: 4px;
+  background-color: #e8ecf3;
 }
 
 /** float **/
@@ -65,6 +70,18 @@ html, body {
 
 .fg-silver {
   color: #8492A6;
+}
+
+.fg-black {
+  color: #1F2D3D;
+}
+
+.fg-black--light {
+  color: #324057;
+}
+
+.fg-black--extra {
+  color: #475669;
 }
 
 .bg--white {
@@ -141,6 +158,10 @@ html, body {
   font-size: 0.667em; // 8px
 }
 
+.font-weight--500 {
+  font-weight: 500;
+}
+
 /** flexbox **/
 .flex {
   display: flex;
@@ -186,6 +207,10 @@ html, body {
 
 /* hack*/
 /** element-ui **/
+a, a:hover, a:focus {
+  color: #1F2D3D;
+}
+
 .el-button:hover, .el-button:focus {
   color: white;
   border-color: transparent;

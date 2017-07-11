@@ -1,33 +1,38 @@
 <template>
-  <section class="topic-list-item flex">
-    <Avatar :username="topic.author.username" :avatar="topic.author.avatar"></Avatar>
-    <div class="topic">
-      <el-row>
-        <el-col class="flex flex-justify--between">
-          <div>
-            <p class="text-regular title" v-once>{{topic.title}}</p>
+  <section class="topic-list-item hover-background--gray">
+    <transition>
+      <router-link :to="{ name: 'topic-detail', params: { id: topic.objectId } }" class="flex">
+        <Avatar :username="topic.author.username" :avatar="topic.author.avatar"></Avatar>
+        <div class="topic">
+          <el-row>
+            <el-col class="flex flex-justify--between">
+              <div>
+                <p class="text-regular--small title" v-once>{{topic.title}}</p>
 
-            <p class="text-assist--small fg-silver">
-              <span class="tags-left"><el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :style="'background-color: ' + tag.color + ';'">{{tag.title}}</el-tag></span>
-              <i class="typcn typcn-arrow-back" v-once></i> {{topic.author.username}} 回复于  天前
-            </p>
-          </div>
-          <div class="tags-right flex flex-align--baseline">
-            <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :style="'background-color: ' + tag.color + ';'">{{tag.title}}</el-tag>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24" class="fg-silver--light" v-once>{{topic.content}}</el-col>
-      </el-row>
-    </div>
-    <div class="reply-wrapper flex flex-direction--column flex-justify--center flex-align--middle">
-      <!-- <i class="typcn typcn-message"></i> {{topic.replyCount}} -->
-      <el-badge :value="topic.replyCount" class="reply-badge">
-        <i class="typcn typcn-message"></i>
-      </el-badge>
-      <el-tag type="gray" class="reply-tag">{{topic.replyCount}}</el-tag>
-    </div>
+                <p class="text-assist--small fg-silver">
+                  <span class="tags-left"><el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color">{{tag.title}}</el-tag></span>
+                  <i class="typcn typcn-arrow-back" v-once></i> {{topic.repliedAuthor.username}} 回复于  天前
+                </p>
+              </div>
+              <div class="tags-right flex flex-align--baseline">
+                <!-- <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :style="'background-color: ' + tag.color + '; color: #000;'">{{tag.title}}</el-tag> -->
+                <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color">{{tag.title}}</el-tag>
+              </div>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24" class="fg-silver--light" v-once>{{topic.content}}</el-col>
+          </el-row>
+        </div>
+        <div class="reply-wrapper flex flex-direction--column flex-justify--center flex-align--middle">
+          <el-badge :is-dot="isDot" :value="topic.repliedCount" class="reply-badge">
+            <i class="typcn typcn-message"></i>
+          </el-badge>
+          <el-tag type="gray" class="reply-tag">{{topic.repliedCount}}</el-tag>
+        </div>
+      </router-link>
+    </transition>
+
   </section>
 </template>
 
@@ -40,15 +45,15 @@ export default {
     topic: {
       type: Object,
       required: true,
-      default: { author: { username: '' } }
+      default: { author: { username: '' }, repliedCount: 0 }
     }
   },
   components: {
     Avatar
   },
-  data () {
-    return {
-      //
+  computed: {
+    isDot () {
+      return this.topic.repliedCount > 99
     }
   }
 }
