@@ -25,6 +25,7 @@
     "vue-analytics": "^4.1.2",
     "vue-axios": "^2.0.2",
     "vue-router": "^2.3.1",
+    "vue-timeago": "^3.3.5",
     "vuex": "^2.3.1",
     "vuex-persistedstate": "^1.4.1",
     "vuex-router-sync": "^4.2.0"

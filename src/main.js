@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
+import VueTimeago from 'vue-timeago'
 import VueAnalytics from 'vue-analytics'
 import 'element-ui/lib/theme-default/reset.css'
 import 'element-ui/lib/theme-default/index.css'
@@ -12,6 +13,12 @@ import router from '@/router'
 import store from '@/store'
 import filters from '@/filters'
 
+Vue.use(VueTimeago, {
+  locale: 'zh-CN',
+  locales: {
+    'zh-CN': require('vue-timeago/locales/zh-CN.json')
+  }
+})
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

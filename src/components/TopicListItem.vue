@@ -11,7 +11,7 @@
 
                 <p class="text-assist--small fg-silver">
                   <span class="tags-left"><el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color">{{tag.title}}</el-tag></span>
-                  <i class="typcn typcn-arrow-back" v-once></i> {{topic.repliedAuthor.username}} 回复于  天前
+                  <i class="typcn typcn-arrow-back" v-once></i> {{topic.repliedAuthor.username}} 回复于 <timeago :since="this.topic.repliedAt.iso"></timeago>
                 </p>
               </div>
               <div class="tags-right flex flex-align--baseline">
