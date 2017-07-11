@@ -2,13 +2,15 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-11 19:37:49
+* @Last Modified time: 2017-07-11 22:34:28
 */
 
 'use strict'
 
 import Vue from 'vue'
 import Lazy from 'lazy.js'
+// import timezoneJS from 'timezone-js'
+// import tz from 'timezone/loaded'
 import { deepCopy } from '@/util'
 
 /**
@@ -40,17 +42,7 @@ function getTopics (
       if (!Array.isArray(topics)) { return Promise.reject(new Error('Result of topics is not an array')) }
       Lazy(topics).each(topic => {
         if (topic.tags) {
-          topic.tagObject = deepCopy(topic.tags)
-          delete topic.tags
-          this.getRelationsRelatedTo({
-            targetClass: topic.tagObject.className,
-            sourceObject: topic,
-            sourceClassName: 'Topic',
-            key: 'tags',
-            order: '-color'
-          })
-            .then(tags => Vue.set(topic, 'tags', tags))
-            .catch(error => console.log(error.message))
+          this.getTagsOfTopic(topic)
         }
         return topic
       })

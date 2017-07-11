@@ -11,7 +11,7 @@
 
                 <p class="text-assist--small fg-silver">
                   <span class="tags-left"><el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color">{{tag.title}}</el-tag></span>
-                  <i class="typcn typcn-arrow-back" v-once></i> {{topic.repliedAuthor.username}} 回复于 <timeago :since="this.topic.repliedAt.iso"></timeago>
+                  <i class="typcn typcn-arrow-back" v-once></i> {{topic.repliedAuthor.username}} {{repliedTimeAgo}}
                 </p>
               </div>
               <div class="tags-right flex flex-align--baseline">
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import Avatar from '@/components/Avatar'
 
 export default {
@@ -54,6 +55,23 @@ export default {
   computed: {
     isDot () {
       return this.topic.repliedCount > 99
+    },
+    repliedTimeAgo () {
+      // const d = new Date(this.topic.repliedAt.iso)
+      // return d.toLocaleString()
+
+      // console.log(typeof this.topic.repliedAt.iso)
+      // const zoneOffset = 8
+      // const offset = new Date().getTimezoneOffset() * 60 * 1000
+      // const baseTime = new Date(this.topic.repliedAt.iso)
+      // const d = new Date(baseTime + offset + zoneOffset * 60 * 60 * 1000)
+      // return d.toString()
+      // const d = new timezoneJS.Date(this.topic.repliedAt.iso, 'Asia/Shanghai')
+      // console.log(d)
+      if (!((this.topic || {}).repliedAt || {}).iso) { return '暂无回复' }
+      moment.locale(['en-US', 'zh-CN'])
+      const fromNow = moment(this.topic.repliedAt.iso).fromNow()
+      return `回复于 ${fromNow}`
     }
   }
 }

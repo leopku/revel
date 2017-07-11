@@ -13,3 +13,4 @@ process.yml
 parse-dashboard.json
 parse-server.json
 nodemon.json
+test/
