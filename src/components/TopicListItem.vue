@@ -46,7 +46,7 @@ export default {
     topic: {
       type: Object,
       required: true,
-      default: { author: { username: '' }, repliedCount: 0 }
+      default: () => { return { author: { username: '' }, repliedCount: 0 } }
     }
   },
   components: {

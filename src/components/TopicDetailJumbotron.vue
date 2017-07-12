@@ -22,7 +22,7 @@ export default {
     topic: {
       type: Object,
       require: true,
-      default: { tags: [] }
+      default: () => { return { tags: [] } }
     }
   }
 }

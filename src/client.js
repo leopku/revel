@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-11 22:34:28
+* @Last Modified time: 2017-07-12 15:50:17
 */
 
 'use strict'
@@ -75,8 +75,14 @@ function getTagsOfTopic (topic) {
  * @param  {String} options.id          ObjectId
  * @return {Promise}
  */
-function getObjectById ({ objectClass, id }) {
-  return Vue.axios.get(`/classes/${objectClass}/${id}`)
+function getObjectById ({
+  objectClass,
+  id,
+  include = ''
+}) {
+  return Vue.axios.get(`/classes/${objectClass}/${id}`, {
+    params: { include }
+  })
     .then(response => response.data)
     // .then(topic => {
     //   getTagsOfTopic(topic)
@@ -140,9 +146,23 @@ function getRelationsRelatedTo (
  * @param  {String} key
  * @return {Promise}
  */
-function getPointer (targetObject, sourceObject, key) {
-  return Vue.axios.get(`/classes/${targetObject.className}/${targetObject.objectId}`)
-      .then(response => response.data)
+function getPointer (targetClassName, sourceObject, sourceClassName, key) {
+  // return Vue.axios.get(`/classes/${targetObject.className}/${targetObject.objectId}`)
+  //     .then(response => response.data)
+  const val = {
+    '__type': 'Pointer',
+    className: sourceClassName,
+    objectId: sourceObject.objectId
+  }
+  const where = { }
+  where[key] = val
+  return Vue.axios.get(`/classes/${targetClassName}`, {
+    where,
+    params: {include: 'author'}
+  })
+    .then(response => response.data)
+    // .then(data => { console.log(data); return data })
+    .then(data => data.results)
 }
 
 export default {
