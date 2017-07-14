@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-12 12:18:56
+* @Last Modified time: 2017-07-12 23:49:50
 */
 
 'use strict'
@@ -37,8 +37,6 @@ const mutations = {
     state.loaded = true
     if (topics) { state.all = topics }
     if (topic) { state.one = topic }
-    // state.all = topics
-    // state.topic = topic
   },
   [types.TOPIC_LOAD_MORE] (state, { newTopics }) {
     state.loading = false
@@ -109,8 +107,13 @@ const actions = {
         //   key: 'topic'
         // })
         //   .then(replies => console.log(`** ${replies} **`))
-        client.getPointer('Reply', topic, 'Topic', 'reply')
+        client.getPointer('Reply', topic, 'Topic', 'topic')
           .then(replies => Vue.set(topic, 'replies', replies))
+          .catch(() => Message({
+            message: '回复加载失败',
+            type: 'error',
+            showClose: true
+          }))
         return topic
       })
       .then(topic => commit(types.TOPIC_LOAD_SUCCESS, { topic }))

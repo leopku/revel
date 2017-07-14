@@ -1,7 +1,7 @@
 <template>
   <section id="topic-list">
         <el-row>
-          <el-col :span="22" :offset="1" class="major">
+          <el-col :span="23" :offset="0" class="major">
             <div class="major-inner flex flex-justify--between">
               <el-cascader
                 :options="options"
@@ -14,7 +14,7 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="22" :offset="1" class="topics" v-loading="topicsRefreshing" :element-loading-text="refreshingMessage">
+          <el-col :span="23" :offset="0" class="topics" v-loading="topicsRefreshing" :element-loading-text="refreshingMessage">
             <TopicListItem v-for="(topic, index) in topics" :topic="topic" :key="index"></TopicListItem>
           </el-col>
         </el-row>

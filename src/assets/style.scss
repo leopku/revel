@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-02 18:26:36
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-10 19:24:08
+* @Last Modified time: 2017-07-14 21:49:55
 */
 
 html, body {
@@ -211,9 +211,37 @@ a, a:hover, a:focus {
   color: #1F2D3D;
 }
 
+.el-card {
+  box-shadow: 0 0 0 0;
+}
+
+.el-button, .el-button--primary, .el-button--text {
+  color: #324057;
+  // background-color: #E5E9F2;
+}
+
 .el-button:hover, .el-button:focus {
   color: white;
   border-color: transparent;
+}
+
+.el-button--primary {
+  color: #324057;
+  background-color: #E5E9F2;
+  border: 0 solid transparent;
+
+  &:hover {
+    color: #324057;
+    background-color: #EFF2F7;
+  }
+}
+
+.el-button--text {
+  color: #8492A6;
+
+  &:hover {
+    color: #475669;
+  }
 }
 
 .el-menu-item:hover, el-menu-item:focus {
@@ -223,6 +251,7 @@ a, a:hover, a:focus {
 .el-menu--horizontal>.el-menu-item:hover {
   border-bottom: 0 solid transparent;
 }
+
 
 @media screen and (max-width: 47.99em) {
   .el-col-xs-0 {

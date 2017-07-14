@@ -1,7 +1,8 @@
 <template>
   <section id="jumbotron" class="bg-gray--light">
     <el-row>
-      <el-col :xs="xs" :sm="sm" :md="md" :lg="lg" :span="22" :offset="1" class="jumbotron-inner" :class="colClass" :style="`min-height: ${minHeight};`">
+      <!-- <el-col :xs="xs" :sm="sm" :md="md" :lg="lg" :span="22" :offset="1" class="jumbotron-inner" :class="colClass" :style="`min-height: ${minHeight};`"> -->
+      <el-col :xs="xs" :sm="sm" :md="md" :lg="lg" :span="22" :offset="1" class="jumbotron-inner" :class="colClass">
         <slot name="jumbotron-content"></slot>
       </el-col>
     </el-row>
@@ -49,7 +50,7 @@ export default {
   }
 
   .el-col {
-    min-height: 20vh;
+    // min-height: 20vh;
     flex-wrap: nowrap;
   }
 }

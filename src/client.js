@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-12 15:50:17
+* @Last Modified time: 2017-07-14 22:13:21
 */
 
 'use strict'
@@ -157,8 +157,10 @@ function getPointer (targetClassName, sourceObject, sourceClassName, key) {
   const where = { }
   where[key] = val
   return Vue.axios.get(`/classes/${targetClassName}`, {
-    where,
-    params: {include: 'author'}
+    params: {
+      where,
+      include: 'author'
+    }
   })
     .then(response => response.data)
     // .then(data => { console.log(data); return data })

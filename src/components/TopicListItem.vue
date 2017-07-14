@@ -16,7 +16,7 @@
               </div>
               <div class="tags-right flex flex-align--baseline">
                 <!-- <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :style="'background-color: ' + tag.color + '; color: #000;'">{{tag.title}}</el-tag> -->
-                <el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color">{{tag.title}}</el-tag>
+                <el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" :close-transition="true" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color">{{tag.title}}</el-tag>
               </div>
             </el-col>
           </el-row>

@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-22 22:55:44
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-05 11:05:40
+* @Last Modified time: 2017-07-13 10:50:51
 */
 
 'use strict'
@@ -13,6 +13,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
+import VueShave from 'vue-shave'
 
 import auth from './modules/auth'
 import tags from './modules/tags'
@@ -26,6 +27,7 @@ axios.defaults.headers.common['X-Parse-Application-Id'] = appName
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
+Vue.use(VueShave)
 
 const common = {
   state: {
