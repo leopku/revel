@@ -31,7 +31,7 @@ export default {
     },
     innerSize: {
       type: String,
-      default: '.6em'
+      default: '.45em'
     }
   }
 }
@@ -43,8 +43,8 @@ export default {
   .cert-icon--inner {
     display: float;
     position: relative;
-    left: -2.45em;
-    top: -0.2em;
+    left: -2.25em;
+    top: -0.3em;
   }
 }
 </style>

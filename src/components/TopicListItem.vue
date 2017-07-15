@@ -7,7 +7,7 @@
           <el-row>
             <el-col class="flex flex-justify--between">
               <div>
-                <p class="text-regular--small title" v-once>{{topic.title}}</p>
+                <p class="font-hei text-regular--small title" v-once>{{topic.title}}</p>
 
                 <p class="text-assist--small fg-silver">
                   <span class="tags-left"><el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color">{{tag.title}}</el-tag></span>
@@ -21,7 +21,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="24" class="fg-silver--light" v-once>{{topic.content}}</el-col>
+            <el-col :span="24" class="font-song text-regular--small fg-silver--light" v-once>{{topic.content}}</el-col>
           </el-row>
         </div>
         <div class="reply-wrapper flex flex-direction--column flex-justify--center flex-align--middle">

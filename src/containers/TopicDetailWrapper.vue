@@ -17,8 +17,14 @@
       </el-col>
       <el-col :span="4" :offset="1" style="margin: 1em 0;">
         <Affix>
-          <el-card>
-            被赞 27 次
+          <el-card class="topic-detail-right no-border">
+            <p>关注者 <el-tag type="gray">88</el-tag></p>
+            <p>被赞 <el-tag type="gray">27</el-tag> 次</p>
+            <p>被收藏 <el-tag type="gray">88</el-tag></p>
+            <div class="bottom" style="margin: 1em 0;">
+              <el-button class="full--width" type="primary" size="small">关注</el-button>
+              <el-button class="full--width" type="primary" size="small">回复</el-button>
+            </div>
           </el-card>
         </Affix>
       </el-col>
@@ -49,3 +55,15 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.topic-detail-right {
+  .el-tag {
+    height: 20px;
+    padding: 0 4px;
+  }
+  .el-button+.el-button {
+    margin: .5em 0;
+  }
+}
+</style>

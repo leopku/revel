@@ -3,10 +3,21 @@
     <el-card class="body-style">
       <!-- <div slot="header" class="flex"> -->
       <div class="flex">
-        <Avatar :username="reply.author.username"></Avatar>
+        <Avatar :username="reply.author.username" :src="reply.author.avatar"></Avatar>
         <div style="margin-left: 1em;">
-          <div class="text-regular font-weight--500">{{reply.author.username}} <CertIcon></CertIcon><CertIcon wrapper-color="blue" inner-icon="tick"></CertIcon></div>
-          <div class="text-assist--big">sign</div>
+          <div class="text-regular font-weight--500">
+            {{reply.author.username}}
+            <CertIcon v-if="reply.author.valuedTag"></CertIcon>
+            <CertIcon wrapper-color="blue" inner-icon="tick" v-if="reply.author.isOrg"></CertIcon>
+          </div>
+
+          <div>
+            <span v-if="reply.author.sign">{{reply.author.sign}}</span>
+            <span v-if="reply.author.sign && reply.author.valuedTag">&nbsp;|&nbsp;</span>
+            <span v-if="reply.author.valuedTag">
+              <span class="font-kai" v-for="tag in reply.author.valuedTag">{{tag}} </span>话题优秀回答者
+            </span>
+          </div>
         </div>
       </div>
       <!-- <transition name="bounce"> -->
@@ -15,7 +26,7 @@
         </div>
 
       <!-- </transition> -->
-      <div class="box-body" v-show="!hasShaved">{{reply.content}}</div>
+      <div class="font-song text-regular--small box-body" v-show="!hasShaved">{{reply.content}}</div>
       <div class="bottom actions flex flex-justify--between">
         <div class="actions-left--wrapper">
           <el-button type="primary" size="mini"><i class="typcn typcn-thumbs-up"></i> <span>55</span></el-button>
@@ -51,7 +62,7 @@ export default {
   data () {
     return {
       hasShaved: true,
-      shaveHeight: 90
+      shaveHeight: 190
     }
   },
   components: {
