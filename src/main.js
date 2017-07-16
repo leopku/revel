@@ -8,6 +8,9 @@ import VueAnalytics from 'vue-analytics'
 import 'element-ui/lib/theme-default/reset.css'
 import 'element-ui/lib/theme-default/index.css'
 import 'typicons.font/src/font/typicons.css'
+import 'intersection-observer'
+// import VueObserveVisibility from 'vue-observe-visibility/src/index'
+import { ObserveVisibility } from 'vue-observe-visibility/dist/vue-observe-visibility'
 import 'fonts.css/fonts.css'
 import '@/assets/style.scss'
 import router from '@/router'
@@ -20,6 +23,8 @@ Vue.use(VueTimeago, {
     'zh-CN': require('vue-timeago/locales/zh-CN.json')
   }
 })
+// Vue.use(VueObserveVisibility)
+Vue.directive('observe-visibility', ObserveVisibility)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

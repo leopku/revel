@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-14 22:13:21
+* @Last Modified time: 2017-07-15 23:02:43
 */
 
 'use strict'
@@ -146,7 +146,14 @@ function getRelationsRelatedTo (
  * @param  {String} key
  * @return {Promise}
  */
-function getPointer (targetClassName, sourceObject, sourceClassName, key) {
+function getPointer ({
+    targetClassName,
+    sourceObject,
+    sourceClassName,
+    key,
+    where = {},
+    order = ''
+  } = {}) {
   // return Vue.axios.get(`/classes/${targetObject.className}/${targetObject.objectId}`)
   //     .then(response => response.data)
   const val = {
@@ -154,11 +161,11 @@ function getPointer (targetClassName, sourceObject, sourceClassName, key) {
     className: sourceClassName,
     objectId: sourceObject.objectId
   }
-  const where = { }
   where[key] = val
   return Vue.axios.get(`/classes/${targetClassName}`, {
     params: {
       where,
+      order,
       include: 'author'
     }
   })

@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-02 18:26:36
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-15 16:18:23
+* @Last Modified time: 2017-07-16 15:39:43
 */
 
 html, body {
@@ -205,6 +205,14 @@ html, body {
   -webkit-transition: width 10s ease-out;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
+
 /* hack*/
 /** element-ui **/
 a, a:hover, a:focus {
@@ -215,6 +223,39 @@ a, a:hover, a:focus {
   box-shadow: 0 0 0 0;
 }
 
+.el-button {
+  color: #324057;
+  background-color: #E5E9F2;
+  border: 1px solid transparent;
+
+  &:hover,&:focus {
+    color: #324057;
+    background-color: #8492A6;
+    border: 1px solid transparent;
+  }
+}
+
+.el-button--primary {
+  color: white;
+  background-color: #324057;
+
+  &:hover,&:focus {
+    // color: #324057;
+    // background-color: #E5E9F2;
+  }
+}
+
+.el-button--text {
+  color: #8492A6;
+  background-color: white;
+
+  &:hover,&:focus {
+    color: #324057;
+    background-color: white;
+  }
+}
+
+/*
 .el-button, .el-button--primary, .el-button--text {
   color: #324057;
 }
@@ -241,6 +282,7 @@ a, a:hover, a:focus {
     color: #475669;
   }
 }
+*/
 
 .el-menu-item:hover, el-menu-item:focus {
   background-color: transparent;

@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-12 23:49:50
+* @Last Modified time: 2017-07-16 16:29:40
 */
 
 'use strict'
@@ -107,7 +107,14 @@ const actions = {
         //   key: 'topic'
         // })
         //   .then(replies => console.log(`** ${replies} **`))
-        client.getPointer('Reply', topic, 'Topic', 'topic')
+        client.getPointer({
+          targetClassName: 'Reply',
+          sourceObject: topic,
+          sourceClassName: 'Topic',
+          key: 'topic',
+          where: { '$or': [{downVotedCount: { '$exists': false }}, {downVoted: 0}] },
+          order: '-upVoted'
+        })
           .then(replies => Vue.set(topic, 'replies', replies))
           .catch(() => Message({
             message: '回复加载失败',

@@ -41,10 +41,9 @@ export default {
 .cert-icon {
 
   .cert-icon--inner {
-    display: float;
     position: relative;
-    left: -2.25em;
-    top: -0.3em;
+    left: -26.5px;
+    top: -4px;
   }
 }
 </style>

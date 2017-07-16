@@ -3,7 +3,7 @@
     <el-row>
       <el-col class="minor">
         <div class="minor-inner">
-          <el-button class="fg-white bg--dark no-border" size="large" @click="onNewTopic">新的话题</el-button>
+          <el-button type="primary" size="large" @click="onNewTopic">新的话题</el-button>
           <el-menu theme="light" class="bg--white" :mode="menuMode">
             <el-menu-item index="1"><i class="typcn typcn-messages" style="font-size: .8em;"></i> 所有话题</el-menu-item>
             <el-menu-item index="2"><i class="typcn typcn-th-large-outline" style="font-size: .8em;"></i> 分类</el-menu-item>

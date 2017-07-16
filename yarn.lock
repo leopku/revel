@@ -3082,6 +3082,10 @@ interpret@^1.0.0:
   version "1.0.3"
   resolved "http://registry.npm.taobao.org/interpret/download/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
 
+intersection-observer@^0.3.2:
+  version "0.3.2"
+  resolved "http://registry.npm.taobao.org/intersection-observer/download/intersection-observer-0.3.2.tgz#9ed30021c08b29e9e8565c8d512ed84515727433"
+
 invariant@^2.2.0, invariant@^2.2.2:
   version "2.2.2"
   resolved "http://registry.npm.taobao.org/invariant/download/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
@@ -6099,6 +6103,10 @@ vue-loader@^12.1.0:
     vue-hot-reload-api "^2.1.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
+
+vue-observe-visibility@^0.1.3:
+  version "0.1.3"
+  resolved "http://registry.npm.taobao.org/vue-observe-visibility/download/vue-observe-visibility-0.1.3.tgz#c2f0fcb5c86d5ae244f53c7e28fa635a0db8ba36"
 
 vue-router@^2.3.1:
   version "2.6.0"

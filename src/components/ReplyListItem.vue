@@ -1,6 +1,8 @@
 <template>
   <section class="reply-list-item" :id="`reply-list-item-${reply.objectId}`">
-    <el-card class="body-style">
+    <el-card class="body-style" v-observe-visibility="visibilityChanged">
+    <transition name="fade">{{isVisible}}
+    <div v-show="isVisible">
       <!-- <div slot="header" class="flex"> -->
       <div class="flex">
         <Avatar :username="reply.author.username" :src="reply.author.avatar"></Avatar>
@@ -29,8 +31,8 @@
       <div class="font-song text-regular--small box-body" v-show="!hasShaved">{{reply.content}}</div>
       <div class="bottom actions flex flex-justify--between">
         <div class="actions-left--wrapper">
-          <el-button type="primary" size="mini"><i class="typcn typcn-thumbs-up"></i> <span>55</span></el-button>
-          <el-button type="primary" size="mini"><i class="typcn typcn-thumbs-down"></i></el-button>
+          <el-button size="mini"><i class="typcn typcn-thumbs-up"></i> <span>{{reply.upVotedCount}}</span></el-button>
+          <el-button size="mini"><i class="typcn typcn-thumbs-down"></i></el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-messages"></i> <span>10 条</span></el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-export-outline"></i> 分享</el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-bookmark"></i> 收藏</el-button>
@@ -42,6 +44,8 @@
           <el-button type="text" size="mini" @click="hasShaved = !hasShaved" v-show="!hasShaved">收起 <i class="typcn typcn-arrow-up-outline"></i></el-button>
         </div>
       </div>
+    </div>
+    </transition>
     </el-card>
   </section>
 </template>
@@ -61,6 +65,7 @@ export default {
   },
   data () {
     return {
+      isVisible: false,
       hasShaved: true,
       shaveHeight: 190
     }
@@ -68,6 +73,12 @@ export default {
   components: {
     CertIcon,
     Avatar
+  },
+  methods: {
+    visibilityChanged (isVisible, entry) {
+      this.isVisible = isVisible
+      console.log(this.reply.objectId + 'Visibility Changed')
+    }
   }
 }
 </script>

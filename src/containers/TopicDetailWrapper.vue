@@ -6,7 +6,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="18" :offset="1">
+      <el-col :xs="22" :sm="22" :md="18" :lg="18" :span="18" :offset="1">
         <ReplyList :replies="topic.replies"></ReplyList>
         <el-col :span="22" v-if="topic.replies && topic.replies.length===0">
           <el-alert title="暂无评论" type="info" show-icon style="margin: 1em 0;"
@@ -15,7 +15,7 @@
 
         </el-col>
       </el-col>
-      <el-col :span="4" :offset="1" style="margin: 1em 0;">
+      <el-col :xs="0" :sm="0" :md="4" :lg="4" :span="4" :offset="1" style="margin: 1em 0;">
         <Affix>
           <el-card class="topic-detail-right no-border">
             <p>关注者 <el-tag type="gray">88</el-tag></p>
