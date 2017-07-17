@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-02 18:26:36
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-16 15:39:43
+* @Last Modified time: 2017-07-16 23:47:03
 */
 
 html, body {
@@ -205,13 +205,13 @@ html, body {
   -webkit-transition: width 10s ease-out;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 1s
-}
+// .fade-enter-active, .fade-leave-active {
+//   transition: opacity 1s
+// }
 
-.fade-enter, .fade-leave-to {
-  opacity: 0
-}
+// .fade-enter, .fade-leave-to {
+//   opacity: 0
+// }
 
 /* hack*/
 /** element-ui **/

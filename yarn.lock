@@ -6140,6 +6140,10 @@ vue-timeago@^3.3.5:
   version "3.3.5"
   resolved "http://registry.npm.taobao.org/vue-timeago/download/vue-timeago-3.3.5.tgz#5af549aa9a48bdfc769895d32f457f2e365946aa"
 
+vue2-animate@^1.0.4:
+  version "1.0.4"
+  resolved "http://registry.npm.taobao.org/vue2-animate/download/vue2-animate-1.0.4.tgz#23fd1ee4ef2e25672f6a84a3363f306160f38032"
+
 vue@^2.0.0, vue@^2.3.3:
   version "2.3.4"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.3.4.tgz#5ec3b87a191da8090bbef56b7cfabd4158038171"

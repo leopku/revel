@@ -32,6 +32,7 @@
     "vue-router": "^2.3.1",
     "vue-shave": "^1.0.2",
     "vue-timeago": "^3.3.5",
+    "vue2-animate": "^1.0.4",
     "vuex": "^2.3.1",
     "vuex-persistedstate": "^1.4.1",
     "vuex-router-sync": "^4.2.0"

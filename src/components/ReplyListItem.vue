@@ -31,7 +31,7 @@
       <div class="font-song text-regular--small box-body" v-show="!hasShaved">{{reply.content}}</div>
       <div class="bottom actions flex flex-justify--between">
         <div class="actions-left--wrapper">
-          <el-button size="mini"><i class="typcn typcn-thumbs-up"></i> <span>{{reply.upVotedCount}}</span></el-button>
+          <el-button size="mini" @click="onUpVoteClick"><i class="typcn typcn-thumbs-up"></i> <span>{{reply.upVotedCount}}</span></el-button>
           <el-button size="mini"><i class="typcn typcn-thumbs-down"></i></el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-messages"></i> <span>10 条</span></el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-export-outline"></i> 分享</el-button>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Avatar from 'vue-avatar/dist/Avatar'
 import CertIcon from '@/components/CertIcon'
 
@@ -75,10 +76,20 @@ export default {
     Avatar
   },
   methods: {
+    onUpVoteClick () {
+      // if (!this.isLogin) {
+      //   this.$store.commit('SWITCH_LOGIN_DIALOG', true)
+      // }
+    },
     visibilityChanged (isVisible, entry) {
       this.isVisible = isVisible
-      console.log(this.reply.objectId + 'Visibility Changed')
+      // console.log(this.reply.objectId + 'Visibility Changed')
     }
+  },
+  computed: {
+    ...mapGetters([
+      'isLogin'
+    ])
   }
 }
 </script>
