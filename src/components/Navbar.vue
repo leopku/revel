@@ -17,7 +17,7 @@
       </el-col>
       <el-col :xs="{span: 0}" :sm="{span: 3}" :md="{span: 3}" :lg="{span: 3}" :span="3" class="float-right" v-if="isLogin">
         <el-dropdown @command="onDropdownClick" trigger="click" class="flex flex-align--middle">
-          <Avatar username="johnjohn"></Avatar>
+          <Avatar :username="currentUser.username" :src="currentUser.avatar"></Avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item><i class="typcn typcn-user-outline"></i> 资料</el-dropdown-item>
             <el-dropdown-item><i class="typcn typcn-cog-outline"></i> 设置</el-dropdown-item>
@@ -43,7 +43,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Avatar from '@/components/Avatar'
+import Avatar from 'vue-avatar/dist/Avatar'
 import Signup from '@/components/Signup'
 import Login from '@/components/Login'
 
@@ -67,7 +67,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isLogin'
+      'isLogin',
+      'currentUser'
     ])
   }
 }
