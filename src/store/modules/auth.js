@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-23 13:22:20
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-03 18:48:27
+* @Last Modified time: 2017-07-18 20:37:21
 */
 
 'use strict'
@@ -19,6 +19,7 @@ const state = {
 }
 
 const getters = {
+  isLogin: state => ((state.auth || {}).user || {}).sessionToken,
   authLoading: state => state.loading,
   authLoaded: state => state.loaded,
   isSignupVisible: state => state.isSignupVisible,

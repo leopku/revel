@@ -11,9 +11,11 @@ import 'typicons.font/src/font/typicons.css'
 import 'intersection-observer'
 // import VueObserveVisibility from 'vue-observe-visibility/src/index'
 import { ObserveVisibility } from 'vue-observe-visibility/dist/vue-observe-visibility'
+import mavonEditor from 'mavon-editor'
 import 'fonts.css/fonts.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
 import '@/assets/style.scss'
+import 'mavon-editor/dist/css/index.css'
 import router from '@/router'
 import store from '@/store'
 import filters from '@/filters'
@@ -24,7 +26,7 @@ Vue.use(VueTimeago, {
     'zh-CN': require('vue-timeago/locales/zh-CN.json')
   }
 })
-// Vue.use(VueObserveVisibility)
+Vue.use(mavonEditor)
 Vue.directive('observe-visibility', ObserveVisibility)
 Vue.use(ElementUI)
 Vue.config.productionTip = false

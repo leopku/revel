@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-22 22:55:44
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-13 10:50:51
+* @Last Modified time: 2017-07-18 20:37:33
 */
 
 'use strict'
@@ -15,10 +15,10 @@ import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
 import VueShave from 'vue-shave'
 
+import common from './modules/common'
 import auth from './modules/auth'
 import tags from './modules/tags'
 import topics from './modules/topics'
-import jumbotron from './modules/jumbotron'
 
 const appName = 'revel'
 
@@ -29,29 +29,22 @@ Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.use(VueShave)
 
-const common = {
-  state: {
-    unopenning: '无人之地暂不对游人开放'
-  }
-}
+// const getters = {
+//   isLogin: state => ((state.auth || {}).user || {}).sessionToken
+// }
 
-const getters = {
-  isLogin: state => ((state.auth || {}).user || {}).sessionToken
-}
+// const mutations = {}
 
-const mutations = {}
-
-const actions = {}
+// const actions = {}
 
 const store = new Vuex.Store({
-  getters,
-  mutations,
-  actions,
+  // getters,
+  // mutations,
+  // actions,
   modules: {
     auth,
     tags,
     topics,
-    jumbotron,
     common
   },
   plugins: [createPersistedState({

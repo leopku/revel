@@ -23,12 +23,14 @@
         </div>
       </div>
       <!-- <transition name="bounce"> -->
-        <div v-shave="{height: shaveHeight}" class="font-song text-regular--small box-body" v-show="hasShaved">
-          {{reply.content}}
+        <div v-shave="{height: shaveHeight, spaces: false}" class="font-song text-regular--small box-body" v-show="hasShaved">
+          <div v-html="reply.content"></div>
         </div>
 
       <!-- </transition> -->
-      <div class="font-song text-regular--small box-body" v-show="!hasShaved">{{reply.content}}</div>
+      <div class="font-song text-regular--small box-body" v-show="!hasShaved">
+        <div v-html="reply.content"></div>
+      </div>
       <div class="bottom actions flex flex-justify--between">
         <div class="actions-left--wrapper">
           <el-button size="mini" @click="onUpVoteClick"><i class="typcn typcn-thumbs-up"></i> <span>{{reply.upVotedCount}}</span></el-button>
@@ -66,6 +68,7 @@ export default {
   },
   data () {
     return {
+      markdown: '',
       isVisible: false,
       hasShaved: true,
       shaveHeight: 190
@@ -102,6 +105,7 @@ export default {
 .body-style {
   border-width: 0;
   border-bottom-width: 1px;
+  border-bottom-color: rgba(209,219,229,.3);
   box-shadow: 0 0 0 0 transparent;
 
   .box-body {

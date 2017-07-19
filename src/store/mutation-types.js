@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-28 22:13:38
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-05 09:28:15
+* @Last Modified time: 2017-07-18 20:56:56
 */
 
 'use strict'
@@ -20,6 +20,9 @@ export const TOPIC_LOAD_SUCCESS = 'TOPIC_LOAD_SUCCESS'
 export const TOPIC_LOAD_FAILED = 'TOPIC_LOAD_FAILED'
 export const TOPIC_LOAD_MORE = 'TOPIC_LOAD_MORE'
 export const TOPIC_RESORT = 'TOPIC_RESORT'
-export const JUMBOTRON_LOAD = 'JUMBOTRON_LOAD'
-export const JUMBOTRON_LOAD_SUCCESS = 'JUMBOTRON_LOAD_SUCCESS'
-export const JUMBOTRON_LOAD_FAILED = 'JUMBOTRON_LOAD_FAILED'
+export const COMMON_LOAD = 'COMMON_LOAD'
+export const COMMON_LOAD_SUCCESS = 'COMMON_LOAD_SUCCESS'
+export const COMMON_LOAD_FAILED = 'COMMON_LOAD_FAILED'
+export const REPLY_LOAD = 'REPLY_LOAD'
+export const REPLY_LOAD_SUCCESS = 'REPLY_LOAD_SUCCESS'
+export const REPLY_LOAD_FAILED = 'REPLY_LOAD_FAILED'
