@@ -2,7 +2,7 @@
   <section id="reply-list" class="reply-list">
     <ReplyListItem :reply="reply" v-for="reply in replies" :key="reply.objectId"></ReplyListItem>
     <div class="full-width flex flex-justify--center" style="margin: 1em 0;">
-      <el-tag type="gray">显示折叠的回答</el-tag>
+      <el-tag type="gray" :close-transition="true">显示折叠的回答</el-tag>
     </div>
     <div class="full-width flex flex-justify--center" v-if="isLogin">
       <mavon-editor :toolbars="toolbars"></mavon-editor>
@@ -11,7 +11,7 @@
       <el-button type="primary" style="margin-top: 1em; margin-right: 2em;">回复</el-button>
     </div>
     <div class="full-width flex flex-justify--center flex-align--middle" v-if="!isLogin" style="background: rgba(228,232,241,.5);min-height: 300px;">
-      <a href="">登入</a>&nbsp;|&nbsp;<a href="">注册</a>&nbsp;回复
+      <a @click="$store.commit('SWITCH_LOGIN_DIALOG', true)">登入</a>&nbsp;|&nbsp;<a @click="$store.commit('SWITCH_SIGNUP_DIALOG', true)">注册</a>&nbsp;回复
     </div>
   </section>
 </template>
