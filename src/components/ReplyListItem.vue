@@ -14,9 +14,10 @@
           </div>
 
           <div>
-            <span v-if="reply.author.sign">{{reply.author.sign}}</span>
-            <span v-if="reply.author.sign && reply.author.valuedTag">&nbsp;|&nbsp;</span>
+            <span v-if="reply.author.sign"><i class="typcn typcn-document-text mini-icon"></i>{{reply.author.sign}}</span>
+            <!-- <span v-if="reply.author.sign && reply.author.valuedTag">&nbsp;|&nbsp;</span> -->
             <span v-if="reply.author.valuedTag">
+              <i class="typcn typcn-spiral mini-icon"></i>
               <span class="font-kai" v-for="tag in reply.author.valuedTag">{{tag}} </span>话题优秀回答者
             </span>
           </div>

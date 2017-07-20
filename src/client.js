@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-20 15:34:47
+* @Last Modified time: 2017-07-21 01:58:28
 */
 
 'use strict'
@@ -95,6 +95,32 @@ function createReply ({
   return Vue.axios.post('/classes/Reply', reply)
 }
 
+function getObjects ({
+  className,
+  where = null,
+  limit = 20,
+  skip = 0,
+  order = '-createdAt',
+  include = ''
+} = {}) {
+  console.log(className, where, limit, skip, order, include)
+  return Vue.axios.get(`/classes/${className}`, {
+    params: {
+      where,
+      limit,
+      skip,
+      order,
+      include
+    }
+  })
+    .then(response => {
+      console.log(response)
+      return response
+    })
+    .then(response => response.data)
+    .then(data => data.results)
+}
+
 /**
  * Get an object by ID
  * @param  {String} options.objectClass Object class name
@@ -167,30 +193,33 @@ function getRelationsRelatedTo (
 }
 
 /**
- * @param  {Object} targetObject { className: 'SampleClass', objectId: '123456'}
- * @param  {Object} sourceObject
+ * @param  {String} targetClassName class name of which had a pointer
+ * @param  {String} objectId        object id of pointer
+ * @param {String} className        class name of pointer
  * @param  {String} key
  * @return {Promise}
  */
 function getPointer ({
     targetClassName,
-    sourceObject,
-    sourceClassName,
+    objectId,
+    className,
     key,
     where = {},
+    limit = 20,
+    skip = 0,
     order = ''
   } = {}) {
-  // return Vue.axios.get(`/classes/${targetObject.className}/${targetObject.objectId}`)
-  //     .then(response => response.data)
   const val = {
     '__type': 'Pointer',
-    className: sourceClassName,
-    objectId: sourceObject.objectId
+    className,
+    objectId
   }
   where[key] = val
   return Vue.axios.get(`/classes/${targetClassName}`, {
     params: {
       where,
+      limit,
+      skip,
       order,
       include: 'author'
     }
@@ -204,6 +233,7 @@ export default {
   getConfig,
   getTopics,
   createReply,
+  getObjects,
   getObjectById,
   getTagsOfTopic,
   getRelationsRelatedTo,

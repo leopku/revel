@@ -7,8 +7,8 @@
     </el-row>
     <el-row>
       <el-col :xs="22" :sm="22" :md="18" :lg="18" :span="18" :offset="1">
-        <ReplyList :replies="topic.replies" :topic-id="topic.objectId"></ReplyList>
-        <el-col :span="22" v-if="topic.replies && topic.replies.length===0">
+        <ReplyList :replies="replies" :topic-id="topic.objectId"></ReplyList>
+        <el-col :span="22" v-if="replies && replies.length===0">
           <el-alert title="暂无评论" type="info" show-icon style="margin: 1em 0;"
             description="暂时还没有人对此话题进行评论，立即邀请其他用户获得回答。"
           ></el-alert>
@@ -46,10 +46,14 @@ export default {
     ReplyList
   },
   created () {
-    this.$store.dispatch('load_topic', { id: this.$route.params.id })
+    const topicId = this.$route.params.id
+    this.$store.dispatch('load_topic', { id: topicId })
+    console.log(this.$route.params.id, this.topic.objectId)
+    this.$store.dispatch('load_replies', { topicId })
   },
   computed: {
     ...mapGetters([
+      'replies',
       'topic'
     ])
   }

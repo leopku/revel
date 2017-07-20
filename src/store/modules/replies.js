@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-18 20:52:57
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-20 15:34:51
+* @Last Modified time: 2017-07-21 02:15:20
 */
 
 'use strict'
@@ -50,6 +50,19 @@ const mutations = {
 }
 
 const actions = {
+  load_replies ({ commit }, { topicId }) {
+    commit(types.REPLY_LOAD)
+    client.getPointer({
+      targetClassName: 'Reply',
+      objectId: topicId,
+      className: 'Topic',
+      key: 'topic'
+      // where: { '$or': [{downVotedCount: { '$exists': false }}, {downVoted: 0}] },
+      // order: '-upVoted'
+    })
+      .then(replies => commit(types.REPLY_LOAD_SUCCESS, { replies }))
+      .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
+  },
   save_reply ({ commit }, { markdown, content, topicId, ACL }) {
     commit(types.REPLY_LOAD)
     client.createReply({

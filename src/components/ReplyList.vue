@@ -62,20 +62,15 @@ export default {
       const content = this.html
       const topicId = this.topicId
       const authorId = this.currentUser.objectId
+
+      // TODO: move to server-side
       const ACL = defaultACL
 
       ACL[authorId] = { write: true }
       this.$store.dispatch('save_reply', { markdown, content, topicId, ACL })
-      const topics = this.$store.state.topics
-      topics.one.replies.push({
-        markdown,
+      this.replies.push({
         content,
-        author: this.currentUser,
-        topic: {
-          '__type': 'Pointer',
-          className: 'Topic',
-          objectId: topicId
-        }
+        author: this.currentUser
       })
       this.markdown = ''
     },
