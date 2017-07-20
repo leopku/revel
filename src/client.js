@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-15 23:02:43
+* @Last Modified time: 2017-07-20 12:47:50
 */
 
 'use strict'
@@ -67,6 +67,39 @@ function getTagsOfTopic (topic) {
   })
     .then(tags => Vue.set(topic, 'tags', tags))
     .catch(error => console.log(error.message))
+}
+
+/**
+ * create a reply for a topic
+ * @param  {String} options.markdown  markdown as source of reply
+ * @param  {String} options.content   html generated from markdown as source of reply
+ * @param  {String} options.topicId   objectId of the topic
+ * @param  {String} options.authorId  authorId of the topic
+ * @return {Promise}
+ */
+function createReply ({
+  markdown,
+  content,
+  topicId,
+  authorId,
+  ACL
+} = {}) {
+  const reply = {
+    markdown,
+    content,
+    author: {
+      '__type': 'Pointer',
+      className: '_User',
+      objectId: authorId
+    },
+    topic: {
+      '__type': 'Pointer',
+      className: 'Topic',
+      objectId: topicId
+    },
+    ACL
+  }
+  return Vue.axios.post('/classes/Reply', reply)
 }
 
 /**
@@ -177,6 +210,7 @@ function getPointer ({
 export default {
   getConfig,
   getTopics,
+  createReply,
   getObjectById,
   getTagsOfTopic,
   getRelationsRelatedTo,

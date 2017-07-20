@@ -2,12 +2,11 @@
 * @Author: leopku
 * @Date:   2017-07-18 20:52:57
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-18 21:31:41
+* @Last Modified time: 2017-07-20 12:37:18
 */
 
 'use strict'
 
-import Vue from 'vue'
 import { Message } from 'element-ui'
 import * as types from '../mutation-types'
 import client from '@/client'
@@ -51,15 +50,17 @@ const mutations = {
 }
 
 const actions = {
-  save_reply ({ commit }, { markdown, content, topicId }) {
+  save_reply ({ commit }, { markdown, content, topicId, authorId, ACL }) {
     commit(types.REPLY_LOAD)
-    // client.saveReply({
-    //   markdown,
-    //   content,
-    //   topicId
-    // })
-    //   .then(reply => commit(types.REPLY_LOAD_SUCCESS, { reply }))
-    //   .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
+    client.createReply({
+      markdown,
+      content,
+      topicId,
+      authorId,
+      ACL
+    })
+      .then(reply => commit(types.REPLY_LOAD_SUCCESS, { reply }))
+      .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
   }
 }
 

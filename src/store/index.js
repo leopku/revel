@@ -2,7 +2,7 @@
 * @Author: leo
 * @Date:   2017-06-22 22:55:44
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-18 20:37:33
+* @Last Modified time: 2017-07-19 23:09:10
 */
 
 'use strict'
@@ -19,6 +19,7 @@ import common from './modules/common'
 import auth from './modules/auth'
 import tags from './modules/tags'
 import topics from './modules/topics'
+import replies from './modules/replies'
 
 const appName = 'revel'
 
@@ -45,6 +46,7 @@ const store = new Vuex.Store({
     auth,
     tags,
     topics,
+    replies,
     common
   },
   plugins: [createPersistedState({
