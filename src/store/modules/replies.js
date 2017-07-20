@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-18 20:52:57
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-20 12:37:18
+* @Last Modified time: 2017-07-20 15:34:51
 */
 
 'use strict'
@@ -50,13 +50,12 @@ const mutations = {
 }
 
 const actions = {
-  save_reply ({ commit }, { markdown, content, topicId, authorId, ACL }) {
+  save_reply ({ commit }, { markdown, content, topicId, ACL }) {
     commit(types.REPLY_LOAD)
     client.createReply({
       markdown,
       content,
       topicId,
-      authorId,
       ACL
     })
       .then(reply => commit(types.REPLY_LOAD_SUCCESS, { reply }))

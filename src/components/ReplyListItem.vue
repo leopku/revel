@@ -1,7 +1,7 @@
 <template>
   <section class="reply-list-item" :id="`reply-list-item-${reply.objectId}`">
     <el-card class="body-style" v-observe-visibility="visibilityChanged">
-    <transition name="fade">{{isVisible}}
+    <transition name="fade">
     <div v-show="isVisible">
       <!-- <div slot="header" class="flex"> -->
       <div class="flex">
@@ -80,9 +80,9 @@ export default {
   },
   methods: {
     onUpVoteClick () {
-      // if (!this.isLogin) {
-      //   this.$store.commit('SWITCH_LOGIN_DIALOG', true)
-      // }
+      if (!this.isLogin) {
+        this.$store.commit('SWITCH_LOGIN_DIALOG', true)
+      }
     },
     visibilityChanged (isVisible, entry) {
       this.isVisible = isVisible

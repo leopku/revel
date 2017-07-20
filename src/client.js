@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-20 12:47:50
+* @Last Modified time: 2017-07-20 15:34:47
 */
 
 'use strict'
@@ -74,24 +74,17 @@ function getTagsOfTopic (topic) {
  * @param  {String} options.markdown  markdown as source of reply
  * @param  {String} options.content   html generated from markdown as source of reply
  * @param  {String} options.topicId   objectId of the topic
- * @param  {String} options.authorId  authorId of the topic
  * @return {Promise}
  */
 function createReply ({
   markdown,
   content,
   topicId,
-  authorId,
   ACL
 } = {}) {
   const reply = {
     markdown,
     content,
-    author: {
-      '__type': 'Pointer',
-      className: '_User',
-      objectId: authorId
-    },
     topic: {
       '__type': 'Pointer',
       className: 'Topic',

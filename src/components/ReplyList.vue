@@ -65,7 +65,7 @@ export default {
       const ACL = defaultACL
 
       ACL[authorId] = { write: true }
-      this.$store.dispatch('save_reply', { markdown, content, topicId, authorId, ACL })
+      this.$store.dispatch('save_reply', { markdown, content, topicId, ACL })
       const topics = this.$store.state.topics
       topics.one.replies.push({
         markdown,
