@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-16 16:29:40
+* @Last Modified time: 2017-07-20 14:39:28
 */
 
 'use strict'
@@ -82,11 +82,6 @@ const actions = {
         options[item] = state[item]
       }
     })
-    // void ['limit', 'skip', 'order', 'include'].forEach(key => {
-    //   if (!options.hasOwnProperty(key) && state.hasOwnProperty(key)) {
-    //     options[key] = state[key]
-    //   }
-    // })
     client.getTopics(options)
       .then(topics => commit(types.TOPIC_LOAD_SUCCESS, { topics }))
       .catch(error => commit(types.TOPIC_LOAD_FAILED, { error }))

@@ -20,8 +20,6 @@
     <div class="full-width flex flex-justify--center flex-align--middle" v-if="!isLogin" style="background: rgba(228,232,241,.5);min-height: 300px;">
       <a @click="$store.commit('SWITCH_LOGIN_DIALOG', true)">登入</a>&nbsp;|&nbsp;<a @click="$store.commit('SWITCH_SIGNUP_DIALOG', true)">注册</a>&nbsp;回复
     </div>
-    {{ markdown }}
-    {{ html }}
   </section>
 </template>
 
