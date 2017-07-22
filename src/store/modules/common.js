@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-05 09:21:37
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-18 20:44:32
+* @Last Modified time: 2017-07-22 12:36:05
 */
 
 'use strict'
@@ -91,6 +91,12 @@ const actions = {
     client.getConfig()
       .then(config => commit(COMMON_LOAD_SUCCESS, { config }))
       .catch(error => commit(COMMON_LOAD_FAILED, { error }))
+  },
+  unopenning ({ commit, state }) {
+    Message({
+      message: state.unopenning,
+      type: 'warning'
+    })
   }
 }
 

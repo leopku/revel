@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-18 20:52:57
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-21 02:15:20
+* @Last Modified time: 2017-07-22 12:22:14
 */
 
 'use strict'
@@ -56,9 +56,10 @@ const actions = {
       targetClassName: 'Reply',
       objectId: topicId,
       className: 'Topic',
-      key: 'topic'
-      // where: { '$or': [{downVotedCount: { '$exists': false }}, {downVoted: 0}] },
-      // order: '-upVoted'
+      where: { '$or': [{downVotedCount: { '$exists': false }}, {downVoted: 0}] },
+      order: '-upVotedCount',
+      key: 'topic',
+      include: 'author'
     })
       .then(replies => commit(types.REPLY_LOAD_SUCCESS, { replies }))
       .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
@@ -68,10 +69,15 @@ const actions = {
     client.createReply({
       markdown,
       content,
-      topicId,
-      ACL
+      topicId
     })
       .then(reply => commit(types.REPLY_LOAD_SUCCESS, { reply }))
+      .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
+  },
+  vote ({ commit }, { action, replyId }) {
+    commit(types.REPLY_LOAD)
+    client.voteReply({action, replyId})
+      .then(() => commit(types.REPLY_LOAD_SUCCESS))
       .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
   }
 }

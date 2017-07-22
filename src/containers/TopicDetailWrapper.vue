@@ -23,7 +23,7 @@
             <p>被收藏 <el-tag type="gray">88</el-tag></p>
             <div class="bottom" style="margin: 1em 0;">
               <el-button class="full--width" type="primary" size="small">关注</el-button>
-              <el-button class="full--width" type="primary" size="small">回复</el-button>
+              <el-button class="full--width" type="primary" size="small" @click="goAnchor('#editor')">回复</el-button>
             </div>
           </el-card>
         </Affix>
@@ -51,8 +51,20 @@ export default {
     console.log(this.$route.params.id, this.topic.objectId)
     this.$store.dispatch('load_replies', { topicId })
   },
+  methods: {
+    goAnchor (selector) {
+      if (!this.isLogin) {
+        this.$store.commit('SWITCH_LOGIN_DIALOG', true)
+      } else {
+        // window.location.href = '#editor'
+        const anchor = this.$el.querySelector(selector)
+        document.body.scrollTop = anchor.offsetTop
+      }
+    }
+  },
   computed: {
     ...mapGetters([
+      'isLogin',
       'replies',
       'topic'
     ])

@@ -5,7 +5,7 @@
       <el-tag type="gray" :close-transition="true">显示折叠的回答</el-tag>
     </div>
     <div class="full-width flex flex-justify--center" v-if="isLogin">
-      <mavon-editor v-model="markdown" :toolbars="toolbars" @change="onEditorChange" :ishljs="true"></mavon-editor>
+      <mavon-editor id="editor" v-model="markdown" :toolbars="toolbars" @change="onEditorChange" :ishljs="true"></mavon-editor>
     </div>
     <div class="full-width flex flex-justify--end" v-if="isLogin">
       <el-popover ref="replyPopover" placement="top" v-model="isReplyPopoverVisible">
@@ -27,7 +27,6 @@
 import { mapGetters } from 'vuex'
 import Avatar from 'vue-avatar/dist/Avatar'
 import ReplyListItem from '@/components/ReplyListItem'
-import { defaultACL } from '@/util'
 
 export default {
   name: 'reply',
@@ -61,13 +60,8 @@ export default {
       const markdown = this.markdown
       const content = this.html
       const topicId = this.topicId
-      const authorId = this.currentUser.objectId
 
-      // TODO: move to server-side
-      const ACL = defaultACL
-
-      ACL[authorId] = { write: true }
-      this.$store.dispatch('save_reply', { markdown, content, topicId, ACL })
+      this.$store.dispatch('save_reply', { markdown, content, topicId })
       this.replies.push({
         content,
         author: this.currentUser

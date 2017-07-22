@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-21 01:58:28
+* @Last Modified time: 2017-07-22 12:21:51
 */
 
 'use strict'
@@ -79,8 +79,7 @@ function getTagsOfTopic (topic) {
 function createReply ({
   markdown,
   content,
-  topicId,
-  ACL
+  topicId
 } = {}) {
   const reply = {
     markdown,
@@ -89,10 +88,24 @@ function createReply ({
       '__type': 'Pointer',
       className: 'Topic',
       objectId: topicId
-    },
-    ACL
+    }
   }
   return Vue.axios.post('/classes/Reply', reply)
+}
+
+/**
+ * voting a reply
+ * @param  {String} options.replyId id of a reply
+ * @param  {String} options.action  upVote' or 'downVote'
+ * @return {Promise}                 [description]
+ */
+function voteReply ({
+  replyId,
+  action = 'upVote'
+} = {}) {
+  console.log(replyId)
+  console.log('||||||||')
+  return Vue.axios.post(`/functions/${action}`, { replyId })
 }
 
 function getObjects ({
@@ -207,6 +220,7 @@ function getPointer ({
     where = {},
     limit = 20,
     skip = 0,
+    include = '',
     order = ''
   } = {}) {
   const val = {
@@ -221,7 +235,7 @@ function getPointer ({
       limit,
       skip,
       order,
-      include: 'author'
+      include
     }
   })
     .then(response => response.data)
@@ -233,6 +247,7 @@ export default {
   getConfig,
   getTopics,
   createReply,
+  voteReply,
   getObjects,
   getObjectById,
   getTagsOfTopic,

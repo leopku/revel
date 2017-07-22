@@ -17,5 +17,12 @@ export default new Router({
       name: 'topic-detail',
       component: TopicDetailWrapper
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    }
+  }
 })

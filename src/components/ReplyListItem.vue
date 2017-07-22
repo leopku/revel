@@ -81,9 +81,18 @@ export default {
   },
   methods: {
     onUpVoteClick () {
+      // disable temperaly
+      /*
       if (!this.isLogin) {
         this.$store.commit('SWITCH_LOGIN_DIALOG', true)
+      } else {
+        const action = 'upVote'
+        const replyId = this.reply.objectId
+        this.$store.dispatch('vote', {action, replyId})
+        this.reply.upVotedCount++
       }
+      */
+      this.$store.dispatch('unopenning')
     },
     visibilityChanged (isVisible, entry) {
       this.isVisible = isVisible
