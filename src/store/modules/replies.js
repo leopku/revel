@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-18 20:52:57
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-22 12:22:14
+* @Last Modified time: 2017-07-22 23:04:58
 */
 
 'use strict'
@@ -33,6 +33,7 @@ const mutations = {
   [types.REPLY_LOAD_SUCCESS] (state, { replies, reply }) {
     state.loading = false
     state.loaded = true
+
     if (replies) { state.all = replies }
     if (reply) { state.one = reply }
   },
@@ -77,7 +78,7 @@ const actions = {
   vote ({ commit }, { action, replyId }) {
     commit(types.REPLY_LOAD)
     client.voteReply({action, replyId})
-      .then(() => commit(types.REPLY_LOAD_SUCCESS))
+      .then(() => commit(types.REPLY_LOAD_SUCCESS, {}))
       .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
   }
 }

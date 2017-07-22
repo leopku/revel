@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-22 12:21:51
+* @Last Modified time: 2017-07-22 23:29:52
 */
 
 'use strict'
@@ -103,9 +103,7 @@ function voteReply ({
   replyId,
   action = 'upVote'
 } = {}) {
-  console.log(replyId)
-  console.log('||||||||')
-  return Vue.axios.post(`/functions/${action}`, { replyId })
+  return Vue.axios.post(`/functions/vote`, { replyId, action })
 }
 
 function getObjects ({
@@ -116,7 +114,6 @@ function getObjects ({
   order = '-createdAt',
   include = ''
 } = {}) {
-  console.log(className, where, limit, skip, order, include)
   return Vue.axios.get(`/classes/${className}`, {
     params: {
       where,
@@ -127,7 +124,6 @@ function getObjects ({
     }
   })
     .then(response => {
-      console.log(response)
       return response
     })
     .then(response => response.data)
@@ -149,10 +145,6 @@ function getObjectById ({
     params: { include }
   })
     .then(response => response.data)
-    // .then(topic => {
-    //   getTagsOfTopic(topic)
-    //   return topic
-    // })
 }
 
 /**

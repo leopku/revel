@@ -34,8 +34,8 @@
       </div>
       <div class="bottom actions flex flex-justify--between">
         <div class="actions-left--wrapper">
-          <el-button size="mini" @click="onUpVoteClick"><i class="typcn typcn-thumbs-up"></i> <span>{{reply.upVotedCount}}</span></el-button>
-          <el-button size="mini"><i class="typcn typcn-thumbs-down"></i></el-button>
+          <el-button size="mini" @click="onVoteClick('upVote')"><i class="typcn typcn-thumbs-up"></i> <span>{{reply.upVotedCount}}</span></el-button>
+          <el-button size="mini" @click="onVoteClick('downVote')"><i class="typcn typcn-thumbs-down"></i></el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-messages"></i> <span>10 条</span></el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-export-outline"></i> 分享</el-button>
           <el-button type="text" size="mini"><i class="typcn typcn-bookmark"></i> 收藏</el-button>
@@ -80,23 +80,26 @@ export default {
     Avatar
   },
   methods: {
-    onUpVoteClick () {
-      // disable temperaly
-      /*
+    onVoteClick (action) {
       if (!this.isLogin) {
         this.$store.commit('SWITCH_LOGIN_DIALOG', true)
-      } else {
-        const action = 'upVote'
-        const replyId = this.reply.objectId
-        this.$store.dispatch('vote', {action, replyId})
-        this.reply.upVotedCount++
+        return
       }
-      */
-      this.$store.dispatch('unopenning')
+
+      const replyId = this.reply.objectId
+      this.$store.dispatch('vote', {action, replyId})
+        .then(() => {
+          // this.reply[`${action}edCount`]++
+          // do this because of data changing observing of vue
+          if (action === 'upVote') {
+            this.reply.upVotedCount++
+          } else {
+            this.reply.downVoteCount++
+          }
+        })
     },
     visibilityChanged (isVisible, entry) {
       this.isVisible = isVisible
-      // console.log(this.reply.objectId + 'Visibility Changed')
     }
   },
   computed: {
