@@ -25,12 +25,12 @@
       </div>
       <!-- <transition name="bounce"> -->
         <div v-shave="{height: shaveHeight, spaces: false}" class="font-song text-regular--small box-body" v-show="hasShaved">
-          <div v-html="reply.content"></div>
+          <div v-once v-html="reply.content"></div>
         </div>
 
       <!-- </transition> -->
       <div class="font-song text-regular--small box-body" v-show="!hasShaved">
-        <div v-html="reply.content"></div>
+        <div v-once v-html="reply.content"></div>
       </div>
       <div class="bottom actions flex flex-justify--between">
         <div class="actions-left--wrapper">
