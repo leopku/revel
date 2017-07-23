@@ -62,6 +62,7 @@ export default {
       const topicId = this.topicId
 
       this.$store.dispatch('save_reply', { markdown, content, topicId })
+        .then(response => console.log(response))
       this.replies.push({
         content,
         author: this.currentUser

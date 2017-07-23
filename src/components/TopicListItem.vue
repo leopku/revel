@@ -3,26 +3,21 @@
     <transition>
       <router-link :to="{ name: 'topic-detail', params: { id: topic.objectId } }" class="flex">
         <Avatar :username="topic.author.username" :src="topic.author.avatar"></Avatar>
-        <div class="topic">
-          <el-row>
-            <el-col class="flex flex-justify--between">
+        <div class="topic flex-grow--true">
+            <div class="flex flex-justify--between">
               <div>
                 <p class="font-hei text-regular--small title" v-once>{{topic.title}}</p>
 
                 <p class="text-assist--small fg-silver">
                   <span class="tags-left"><el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color" :close-transition="true">{{tag.title}}</el-tag></span>
-                  <i class="typcn typcn-arrow-back" v-once></i> {{topic.repliedAuthor.username}} {{repliedTimeAgo}}
+                  <i class="typcn typcn-arrow-back" v-once></i> {{repliedUserName}} {{repliedTimeAgo}}
                 </p>
               </div>
               <div class="tags-right flex flex-align--baseline">
-                <!-- <el-tag type="gray" v-for="(tag, index) in topic.tags" :key="index" :style="'background-color: ' + tag.color + '; color: #000;'">{{tag.title}}</el-tag> -->
                 <el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color" :close-transition="true">{{tag.title}}</el-tag>
               </div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="24" class="font-song text-regular--small fg-silver--light" v-once>{{topic.content}}</el-col>
-          </el-row>
+            </div>
+            <div class="font-song text-regular--small fg-silver--light" v-once v-html="topic.content"></div>
         </div>
         <div class="reply-wrapper flex flex-direction--column flex-justify--center flex-align--middle">
           <el-badge :is-dot="isDot" :value="topic.repliedCount" class="reply-badge">
@@ -46,13 +41,16 @@ export default {
     topic: {
       type: Object,
       required: true,
-      default: () => { return { author: { username: '' }, repliedCount: 0 } }
+      default: () => { return { author: { username: '' }, repliedAuthor: { username: '' }, repliedCount: 0 } }
     }
   },
   components: {
     Avatar
   },
   computed: {
+    repliedUserName () {
+      return (this.topic.repliedAuthor || {}).username || ''
+    },
     isDot () {
       return this.topic.repliedCount > 99
     },

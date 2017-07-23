@@ -40,10 +40,15 @@ export default {
   },
   methods: {
     onNewTopic () {
-      this.$message({
-        message: this.$store.state.common.unopenning,
-        type: 'warning'
-      })
+      // this.$message({
+      //   message: this.$store.state.common.unopenning,
+      //   type: 'warning'
+      // })
+      if (!this.isLogin) {
+        this.$store.commit('SWITCH_LOGIN_DIALOG', true)
+      } else {
+        this.$store.commit('SWITCH_NEW_TOPIC_DIALOG')
+      }
     },
     onResize () {
       this.menuMode = this.mq.matches ? 'horizontal' : 'vertical'
@@ -51,6 +56,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'isLogin',
       'tags'
     ])
   }

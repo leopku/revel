@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-02 18:26:36
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-21 02:24:08
+* @Last Modified time: 2017-07-23 14:16:53
 */
 
 html, body {
@@ -201,6 +201,10 @@ html, body {
 
 .flex-align--baseline {
   align-items: baseline;
+}
+
+.flex-grow--true {
+  flex-grow: 1
 }
 
 /* animate */

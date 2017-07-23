@@ -38,6 +38,7 @@
     </el-row>
     <Signup></Signup>
     <Login></Login>
+    <NewTopic></NewTopic>
   </nav>
 </template>
 
@@ -46,13 +47,15 @@ import { mapGetters } from 'vuex'
 import Avatar from 'vue-avatar/dist/Avatar'
 import Signup from '@/components/Signup'
 import Login from '@/components/Login'
+import NewTopic from '@/components/NewTopic'
 
 export default {
   name: 'navbar',
   components: {
     Avatar,
     Signup,
-    Login
+    Login,
+    NewTopic
   },
   methods: {
     onDropdownClick (cmd) {

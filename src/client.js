@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-22 23:29:52
+* @Last Modified time: 2017-07-23 01:47:04
 */
 
 'use strict'
@@ -67,6 +67,34 @@ function getTagsOfTopic (topic) {
   })
     .then(tags => Vue.set(topic, 'tags', tags))
     .catch(error => console.log(error.message))
+}
+
+function createTopic ({
+  title,
+  markdown,
+  content,
+  tags
+} = {}) {
+  const objects = []
+  for (var i = tags.length - 1; i >= 0; i--) {
+    tags[i]
+    let object = {
+      '__type': 'Pointer',
+      className: 'Tag',
+      objectId: tags[i].value
+    }
+    objects.push(object)
+  }
+  return Vue.axios.post('/classes/Topic', {
+    title,
+    markdown,
+    content,
+    tags: {
+      '__op': 'AddRelation',
+      objects
+    }
+  })
+    .then(response => response.data)
 }
 
 /**
@@ -238,6 +266,7 @@ function getPointer ({
 export default {
   getConfig,
   getTopics,
+  createTopic,
   createReply,
   voteReply,
   getObjects,

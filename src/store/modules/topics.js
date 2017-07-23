@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-21 01:57:53
+* @Last Modified time: 2017-07-23 01:47:33
 */
 
 'use strict'
@@ -18,13 +18,15 @@ const state = {
   one: { tags: [] },
   limit: 10,
   skip: 0,
-  loading: false
+  loading: false,
+  isNewTopicVisible: false
 }
 
 const getters = {
   topic: state => state.one,
   topics: state => state.all,
-  topicLoading: state => state.loading
+  topicLoading: state => state.loading,
+  isNewTopicVisible: state => state.isNewTopicVisible
 }
 
 const mutations = {
@@ -63,10 +65,27 @@ const mutations = {
     const newTopics = Lazy(state.all).sortBy(topic => topic[field], descend).toArray()
 
     Vue.set(state, 'all', newTopics)
+  },
+  [types.SWITCH_NEW_TOPIC_DIALOG] (state, visible = true) {
+    state.isNewTopicVisible = visible
   }
 }
 
 const actions = {
+  create_topic ({ commit }, { title, markdown, content, tags }) {
+    commit(types.TOPIC_LOAD)
+    client.createTopic({
+      title,
+      markdown,
+      content,
+      tags
+    })
+      .then(topic => {
+        commit(types.TOPIC_LOAD_SUCCESS, { topic })
+        return topic
+      })
+      .catch(error => commit(types.TOPIC_LOAD_FAILED, { error }))
+  },
   load_more_topics ({ commit, state }, options = {}) {
     commit(types.TOPIC_LOAD)
     let params = options
