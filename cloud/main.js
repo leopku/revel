@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-27 19:20:30
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-22 23:52:44
+* @Last Modified time: 2017-07-23 14:47:27
 */
 'use strict'
 
@@ -92,4 +92,13 @@ Parse.Cloud.beforeSave('Reply', (req, res) => {
   }
 
   res.success(req.object)
+})
+
+Parse.Cloud.afterSave('Reply', req => {
+  console.log(req.object.get('topic'))
+  const topic = req.object.get('topic')
+  topic.set('repliedAuthor', req.user)
+  topic.set('repliedAt', new Date())
+  topic.increment('repliedCount')
+  topic.save(null, {useMasterKey})
 })
