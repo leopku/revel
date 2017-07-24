@@ -66,42 +66,40 @@ export default {
       }, 2000)
     },
     onChange (value) {
-      let field = ''
-      let descend = false
+      let field = 'createdAt'
+      let descend = true
       switch (value[0]) {
         case 'latest':
           field = 'repliedAt'
-          descend = true
           break
         case 'top':
-          field = 'replyCount'
+          field = 'repliedCount'
           break
         case 'newest':
           field = 'createdAt'
-          descend = true
           break
         case 'oldest':
           field = 'createdAt'
           descend = false
           break
         default:
-          field = ''
-          descend = false
+          field = 'repliedAt'
+          descend = true
       }
 
       // TODO: real sorting by selected type
       // TODO: resort by watching this.field & this.descend reactively
       if (field !== this.field || descend !== this.descend) {
-        if (field === 'createdAt') {
-          this.field = field
-          this.descend = descend
-          this.$store.dispatch('sort_topics', { field, descend })
-        } else {
-          this.$message({
-            message: this.$store.state.common.unopenning,
-            type: 'warning'
-          })
-        }
+        // if (field === 'createdAt') {
+        this.field = field
+        this.descend = descend
+        this.$store.dispatch('sort_topics', { field, descend })
+        // } else {
+        //   this.$message({
+        //     message: this.$store.state.common.unopenning,
+        //     type: 'warning'
+        //   })
+        // }
       }
     }
   },

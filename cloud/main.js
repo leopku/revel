@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-27 19:20:30
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-23 14:47:27
+* @Last Modified time: 2017-07-24 16:21:03
 */
 'use strict'
 
@@ -67,6 +67,61 @@ Parse.Cloud.define('vote', (req, res) => {
     .catch(error => res.error(error))
 })
 
+Parse.Cloud.define('setTagsOfTopic', (req, res) => {
+  const user = req.user
+  const topicId = req.params.topicId
+  const tags = req.params.tags
+
+  if (!user || !topicId || !tags) {
+    res.success('create tags successfully!')
+    return
+  }
+
+  const topicQuery = new Parse.Query('Topic')
+  topicQuery.get(topicId)
+    .then(topic => {
+      if (topic.get('author').id === user.id) {
+        const relation = topic.relation('tags')
+        const tagQuery = new Parse.Query('Tag')
+        tagQuery.containedIn('objectId', tags)
+        tagQuery.find()
+          .then(tags => relation.add(tags))
+          .then(result => {
+            topic.save(null, {useMasterKey})
+              .then(result => res.success(result))
+              .catch(error => res.error(error))
+          })
+      }
+    })
+    .catch(error => res.error(error))
+})
+
+Parse.Cloud.beforeSave('Topic', (req, res) => {
+  const user = req.user
+  if (!user) {
+    res.success('create topic successfully!')
+    return
+  }
+  if (req.object.isNew()) {
+    // remove client-side author
+    if (req.object.get('author')) {
+      delete req.object.author
+    }
+    // set server-side author
+    req.object.set('author', user)
+
+    // remove client-side ACL
+    if (req.object.get('ACL')) {
+      delete req.object.ACL
+    }
+
+    const roleNames = [user.id]
+    const acl = defaultACL({ roleNames })
+    req.object.setACL(acl)
+  }
+  res.success(req.object)
+})
+
 Parse.Cloud.beforeSave('Reply', (req, res) => {
   const user = req.user
   if (req.object.isNew()) {
@@ -75,18 +130,14 @@ Parse.Cloud.beforeSave('Reply', (req, res) => {
       delete req.object.author
     }
     // set server-side author
-    req.object.set('author', {
-      '__type': 'Pointer',
-      className: '_User',
-      objectId: user.id
-    })
+    req.object.set('author', user)
 
     // remove client-side ACL
     if (req.object.get('ACL')) {
       delete req.object.ACL
     }
 
-    const roleNames = [req.user.id]
+    const roleNames = [user.id]
     const acl = defaultACL({ roleNames })
     req.object.setACL(acl)
   }
@@ -95,10 +146,11 @@ Parse.Cloud.beforeSave('Reply', (req, res) => {
 })
 
 Parse.Cloud.afterSave('Reply', req => {
-  console.log(req.object.get('topic'))
-  const topic = req.object.get('topic')
-  topic.set('repliedAuthor', req.user)
-  topic.set('repliedAt', new Date())
-  topic.increment('repliedCount')
-  topic.save(null, {useMasterKey})
+  if (req.object.isNew()) {
+    const topic = req.object.get('topic')
+    topic.set('repliedAuthor', req.user)
+    topic.set('repliedAt', new Date())
+    topic.increment('repliedCount')
+    topic.save(null, {useMasterKey})
+  }
 })

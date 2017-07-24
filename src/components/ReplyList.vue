@@ -5,7 +5,7 @@
       <el-tag type="gray" :close-transition="true">显示折叠的回答</el-tag>
     </div>
     <div class="full-width flex flex-justify--center" v-if="isLogin">
-      <mavon-editor id="editor" v-model="markdown" :toolbars="toolbars" @change="onEditorChange" :ishljs="true"></mavon-editor>
+      <mavon-editor id="editor" v-model="markdown" :toolbars="toolbars" @change="onEditorChange" :ishljs="true" :subfield="false" placeholder="这里编写指令，预览点击右上角「眼睛」图标或按「F9」"></mavon-editor>
     </div>
     <div class="full-width flex flex-justify--end" v-if="isLogin">
       <el-popover ref="replyPopover" placement="top" v-model="isReplyPopoverVisible">

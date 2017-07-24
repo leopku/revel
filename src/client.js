@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-23 01:47:04
+* @Last Modified time: 2017-07-24 16:09:37
 */
 
 'use strict'
@@ -87,14 +87,21 @@ function createTopic ({
   }
   return Vue.axios.post('/classes/Topic', {
     title,
+    '_tags': tags,
     markdown,
-    content,
-    tags: {
-      '__op': 'AddRelation',
-      objects
-    }
+    content
   })
     .then(response => response.data)
+    .then(topic => {
+      // Vue.axios.put(`/classes/Topic/${topic.objectId}`, {
+      Vue.axios.post('/functions/setTagsOfTopic', {
+        topicId: topic.objectId,
+        tags
+      })
+        .then(response => console.log(response))
+
+      return topic
+    })
 }
 
 /**

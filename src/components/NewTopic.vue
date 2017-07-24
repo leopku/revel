@@ -10,7 +10,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <mavon-editor v-model="topic.markdown" :subfield="false" :toolbars="toolbars" @change="onEditorChange" :ishljs="true"></mavon-editor>
+        <mavon-editor v-model="topic.markdown" :subfield="false" :toolbars="toolbars" @change="onEditorChange" :ishljs="true" placeholder="这里编写指令，预览点击右上角「眼睛」图标或按「F9」"></mavon-editor>
       </el-form-item>
     </el-form>
     <el-button :loading="topicLoading" @click="onNewTopicClick" type="primary" class="full--width">提交话题</el-button>
