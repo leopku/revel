@@ -5,7 +5,7 @@
     <div v-show="isVisible">
       <!-- <div slot="header" class="flex"> -->
       <div class="flex">
-        <Avatar :username="reply.author.username" :src="reply.author.avatar"></Avatar>
+        <Avatar :username="reply.author.username" :src="reply.author.avatar" :size="40"></Avatar>
         <div style="margin-left: 1em;">
           <div class="text-regular font-weight--500">
             {{reply.author.username}}

@@ -1,24 +1,25 @@
 <template>
   <el-dialog title="新的话题" :visible="isNewTopicVisible" :before-close="onBeforeClose">
-    <el-form v-model="topic">
-      <el-form-item>
+    <el-form v-model="topic" ref="topicForm" label-width="50px">
+      <el-form-item label="标题" prop="title">
         <el-input v-model="topic.title" placeholder="话题标题"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-select v-model="topic.tags" multiple filterable="" allow-create class="full--width" placeholder="请选择问题标签">
+      <el-form-item label="标签" prop="tags">
+        <el-select v-model="topic.tags" multiple filterable="" allow-create class="full--width" placeholder="请选择话题标签">
           <el-option v-for="tag in tags" :key="tag.objectId" :label="tag.title" :value="tag.objectId"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item>
+      <el-form-item  prop="markdown">
         <mavon-editor v-model="topic.markdown" :subfield="false" :toolbars="toolbars" @change="onEditorChange" :ishljs="true" placeholder="这里编写指令，预览点击右上角「眼睛」图标或按「F9」"></mavon-editor>
       </el-form-item>
     </el-form>
-    <el-button :loading="topicLoading" @click="onNewTopicClick" type="primary" class="full--width">提交话题</el-button>
+    <el-button :loading="topicLoading" @click="onNewTopicSubmit('topicForm')" type="primary" class="full--width">提交话题</el-button>
   </el-dialog>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Lazy from 'lazy.js'
 import { deepCopy } from '@/util'
 import {SWITCH_NEW_TOPIC_DIALOG} from '@/store/mutation-types'
 
@@ -26,18 +27,23 @@ export default {
   name: 'new-topic',
   data () {
     return {
-      options5: [
-        { value: 'HTML', lable: 'HTML' },
-        { value: 'CSS', label: 'CSS' },
-        { value: 'JavaScript', label: 'JavaScript' }
-      ],
-      value10: [],
-      // tags: [],
       topic: {
         title: '',
         tags: [],
         markdown: '',
         content: ''
+      },
+      rules: {
+        title: [
+          { required: true, message: '请输入话题标题', trigger: 'blur' },
+          { min: 3, max: 255, message: '长度不能短于 3', trigger: 'blur' }
+        ],
+        tags: [
+          { type: 'array', required: true, message: '请选择话题标签', trigger: ['blur', 'change'] }
+        ],
+        markdown: [
+          { required: true, message: '请填写指令', trigger: 'blur' }
+        ]
       }
     }
   },
@@ -46,35 +52,39 @@ export default {
       this.$store.commit(SWITCH_NEW_TOPIC_DIALOG, false)
       done()
     },
-    onNewTopicClick () {
-      this.isNewTopicVisible = true
-      if (this.topic.markdown.trim().length === 0) {
-        this.$message({
-          message: '指令貌似是空的',
-          type: 'warning'
-        })
-        return
-      }
-      this.$store.dispatch('create_topic', this.topic)
-        .then(response => console.log(response))
+    onNewTopicSubmit (formName) {
+      this.$refs[formName].validate(valid => {
+        if (!valid) {
+          this.$message({
+            message: '指令貌似是空的',
+            type: 'warning'
+          })
+          return false
+        }
+        this.$store.dispatch('create_topic', this.topic)
+          .then(response => {
+            const copy = deepCopy(this.topic)
+            copy.author = this.currentUser
+            copy.objectId = response.objectId
+            copy.tags = []
+
+            Lazy(this.tags).filter(tag => this.topic.tags.indexOf(tag.objectId) >= 0)
+              .each(tag => copy.tags.push(tag))
+            this.$store.commit('SHIFT_NEW_TOPIC', copy)
+            this.$refs[formName].resetFields()
+          })
+      })
     },
     onEditorChange (markdown, html) {
-      // this.topic.markdown = markdown
       this.topic.content = html
     }
   },
-  // mounted () {
-  //   const tags = this.$store.getters.tags
-  //   this.tags = tags.map(tag => {
-  //     return { value: tag.objectId, label: tag.title }
-  //   })
-  // },
   computed: {
     ...mapGetters([
+      'currentUser',
       'isNewTopicVisible',
       'topicLoading',
       'tags'
-      // 'toolbars'
     ]),
     toolbars () {
       let toolbars = deepCopy(this.$store.getters.toolbars)

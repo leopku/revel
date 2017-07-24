@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-29 15:57:14
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-23 01:47:33
+* @Last Modified time: 2017-07-24 20:02:23
 */
 
 'use strict'
@@ -37,6 +37,8 @@ const mutations = {
   [types.TOPIC_LOAD_SUCCESS] (state, { topics, topic }) {
     state.loading = false
     state.loaded = true
+    state.isNewTopicVisible = false
+
     if (topics) { state.all = topics }
     if (topic) { state.one = topic }
   },
@@ -68,13 +70,18 @@ const mutations = {
   },
   [types.SWITCH_NEW_TOPIC_DIALOG] (state, visible = true) {
     state.isNewTopicVisible = visible
+  },
+  [types.SHIFT_NEW_TOPIC] (state, topic) {
+    console.log(topic, state.all.length)
+    state.all.unshift(topic)
+    console.log(topic, state.all.length)
   }
 }
 
 const actions = {
   create_topic ({ commit }, { title, markdown, content, tags }) {
     commit(types.TOPIC_LOAD)
-    client.createTopic({
+    return client.createTopic({
       title,
       markdown,
       content,

@@ -2,22 +2,22 @@
   <section class="topic-list-item hover-background--gray">
     <transition>
       <router-link :to="{ name: 'topic-detail', params: { id: topic.objectId } }" class="flex">
-        <Avatar :username="topic.author.username" :src="topic.author.avatar"></Avatar>
+        <Avatar :username="topic.author.username" :src="topic.author.avatar" :size="40"></Avatar>
         <div class="topic flex-grow--true">
             <div class="flex flex-justify--between">
               <div>
-                <p class="font-hei text-regular--small title" v-once>{{topic.title}}</p>
+                <p class="font-hei text-regular--small title">{{topic.title}}</p>
 
                 <p class="text-assist--small fg-silver">
                   <span class="tags-left"><el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color" :close-transition="true">{{tag.title}}</el-tag></span>
-                  <i class="typcn typcn-arrow-back" v-once></i> {{repliedUserName}} {{repliedTimeAgo}}
+                  <i class="typcn typcn-arrow-back"></i> {{repliedUserName}} {{repliedTimeAgo}}
                 </p>
               </div>
               <div class="tags-right flex flex-align--baseline">
                 <el-tag :class="{ 'fg-white': tag.hasOwnProperty('color') }" type="gray" v-for="(tag, index) in topic.tags" :key="index" :color="tag.color" :close-transition="true">{{tag.title}}</el-tag>
               </div>
             </div>
-            <div class="font-song text-regular--small fg-silver--light" v-once v-html="topic.content"></div>
+            <div class="font-song text-regular--small fg-silver--light" v-html="topic.content"></div>
         </div>
         <div class="reply-wrapper flex flex-direction--column flex-justify--center flex-align--middle">
           <el-badge :is-dot="isDot" :value="topic.repliedCount" class="reply-badge">

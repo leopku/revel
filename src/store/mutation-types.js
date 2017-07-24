@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-28 22:13:38
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-22 13:21:07
+* @Last Modified time: 2017-07-24 17:20:38
 */
 
 'use strict'
@@ -20,6 +20,7 @@ export const TOPIC_LOAD_SUCCESS = 'TOPIC_LOAD_SUCCESS'
 export const TOPIC_LOAD_FAILED = 'TOPIC_LOAD_FAILED'
 export const TOPIC_LOAD_MORE = 'TOPIC_LOAD_MORE'
 export const TOPIC_RESORT = 'TOPIC_RESORT'
+export const SHIFT_NEW_TOPIC = 'SHIFT_NEW_TOPIC'
 export const SWITCH_NEW_TOPIC_DIALOG = 'SWITCH_NEW_TOPIC_DIALOG'
 export const COMMON_LOAD = 'COMMON_LOAD'
 export const COMMON_LOAD_SUCCESS = 'COMMON_LOAD_SUCCESS'

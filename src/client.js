@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-24 16:09:37
+* @Last Modified time: 2017-07-24 16:44:11
 */
 
 'use strict'
@@ -75,31 +75,19 @@ function createTopic ({
   content,
   tags
 } = {}) {
-  const objects = []
-  for (var i = tags.length - 1; i >= 0; i--) {
-    tags[i]
-    let object = {
-      '__type': 'Pointer',
-      className: 'Tag',
-      objectId: tags[i].value
-    }
-    objects.push(object)
-  }
   return Vue.axios.post('/classes/Topic', {
     title,
-    '_tags': tags,
     markdown,
     content
   })
     .then(response => response.data)
     .then(topic => {
-      // Vue.axios.put(`/classes/Topic/${topic.objectId}`, {
       Vue.axios.post('/functions/setTagsOfTopic', {
         topicId: topic.objectId,
         tags
       })
-        .then(response => console.log(response))
-
+        .then(response => response.data)
+        .then(data => data.result)
       return topic
     })
 }
