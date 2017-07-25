@@ -78,7 +78,11 @@ export default {
 <style scoped lang="scss">
 
 .topic-list-item {
-  padding: 1em 0;
+  padding: 1em 0 1em 1em;
+
+  .avatar {
+    margin-right: 0.5em
+  }
 
   .topic {
     .title {

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/containers/Home'
 import TopicDetailWrapper from '@/containers/TopicDetailWrapper'
+import NewTopicWrapper from '@/containers/NewTopicWrapper'
 
 Vue.use(Router)
 
@@ -11,6 +12,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/newTopic',
+      name: 'new-topic',
+      component: NewTopicWrapper
     },
     {
       path: '/t/:id',

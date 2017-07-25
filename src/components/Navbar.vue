@@ -4,14 +4,12 @@
       <el-col :xs="{span: 20}" :sm="{span: 0}" :md="{span: 0}" :lg="{span: 0}" :span="0">
         <div style="height: 60px;" class="flex flex-align--middle flex-justify--between">
           <i class="typcn typcn-th-menu"></i>
-          <i class="typcn typcn-edit"></i>
+          <!-- <router-link :to="{ name: 'new-topic'}">
+            <i class="typcn typcn-edit"></i>
+          </router-link> -->
+          <i class="typcn typcn-edit" @click="onNewTopic"></i>
         </div>
       </el-col>
-      <!-- <el-col :xs="{span: 2}" :sm="{span: 0}" :md="{span: 0}" :lg="{span: 0}" :span="0">
-        <div style="height: 60px;" class="flex flex-align--middle">
-          <i class="typcn typcn-edit"></i>
-        </div>
-      </el-col> -->
       <el-col :xs="{span: 0}" :sm="{span: 16}" :md="{span: 16}" :lg="{span: 16}" :span="16" :offset="1">
         <el-menu theme="light" mode="horizontal" class="bg--white" :router="true">
           <el-menu-item index="/">首页</el-menu-item>
@@ -21,7 +19,6 @@
       </el-col>
       <el-col :xs="{span: 0}" :sm="{span: 5}" :md="{span: 5}" :lg="{span: 5}" :span="5" class="float-right" v-show="!isLogin">
         <el-menu theme="light" mode="horizontal" class="bg--white">
-          <!-- <el-menu-item index="1" @click="isSignupVisible=true">注册</el-menu-item> -->
           <el-menu-item index="1" @click="$store.commit('SWITCH_SIGNUP_DIALOG', true)">注册</el-menu-item>
           <el-menu-item index="2" @click="$store.commit('SWITCH_LOGIN_DIALOG', true)">登入</el-menu-item>
         </el-menu>
@@ -39,7 +36,9 @@
     </el-row>
     <Signup></Signup>
     <Login></Login>
-    <NewTopic></NewTopic>
+    <el-dialog title="新的话题" :visible="isNewTopicVisible" :before-close="onBeforeClose" size="full">
+      <NewTopic></NewTopic>
+    </el-dialog>
   </nav>
 </template>
 
@@ -59,6 +58,13 @@ export default {
     NewTopic
   },
   methods: {
+    onBeforeClose (done) {
+      this.$store.commit('SWITCH_NEW_TOPIC_DIALOG', false)
+      done()
+    },
+    onNewTopic () {
+      this.isLogin ? this.$store.commit('SWITCH_NEW_TOPIC_DIALOG') : this.$store.commit('SWITCH_LOGIN_DIALOG', true)
+    },
     onDropdownClick (cmd) {
       switch (cmd) {
         case 'logout':
@@ -72,6 +78,7 @@ export default {
   computed: {
     ...mapGetters([
       'isLogin',
+      'isNewTopicVisible',
       'currentUser'
     ])
   }

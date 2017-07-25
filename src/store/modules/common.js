@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-05 09:21:37
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-22 12:36:05
+* @Last Modified time: 2017-07-24 23:53:35
 */
 
 'use strict'
@@ -21,22 +21,22 @@ const toolbars = {
   mark: true, // 标记
   superscript: true, // 上角标
   subscript: true, // 下角标
-  quote: true, // 引用
-  ol: true, // 有序列表
-  ul: true, // 无序列表
+  quote: false, // 引用
+  ol: false, // 有序列表
+  ul: false, // 无序列表
   link: true, // 链接
   imagelink: false, // 图片链接
-  code: true, // code
+  code: false, // code
   table: false, // 表格
   subfield: true, // 是否需要分栏
   fullscreen: false, // 全屏编辑
   readmodel: false, // 沉浸式阅读
-  htmlcode: true, // 展示html源码
+  htmlcode: false, // 展示html源码
   help: true, // 帮助
   /* 1.3.5 */
   undo: true, // 上一步
   redo: true, // 下一步
-  trash: true, // 清空
+  trash: false, // 清空
   save: true, // 保存（触发events中的save事件）
   /* 1.4.2 */
   navigation: true, // 导航目录

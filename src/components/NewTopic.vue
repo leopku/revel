@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="新的话题" :visible="isNewTopicVisible" :before-close="onBeforeClose">
-    <el-form v-model="topic" ref="topicForm" label-width="50px">
+  <div>
+    <el-form :model="topic" :rules="rules" ref="topicForm" label-width="50px">
       <el-form-item label="标题" prop="title">
         <el-input v-model="topic.title" placeholder="话题标题"></el-input>
       </el-form-item>
@@ -14,14 +14,13 @@
       </el-form-item>
     </el-form>
     <el-button :loading="topicLoading" @click="onNewTopicSubmit('topicForm')" type="primary" class="full--width">提交话题</el-button>
-  </el-dialog>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Lazy from 'lazy.js'
 import { deepCopy } from '@/util'
-import {SWITCH_NEW_TOPIC_DIALOG} from '@/store/mutation-types'
 
 export default {
   name: 'new-topic',
@@ -48,15 +47,11 @@ export default {
     }
   },
   methods: {
-    onBeforeClose (done) {
-      this.$store.commit(SWITCH_NEW_TOPIC_DIALOG, false)
-      done()
-    },
     onNewTopicSubmit (formName) {
       this.$refs[formName].validate(valid => {
         if (!valid) {
           this.$message({
-            message: '指令貌似是空的',
+            message: '指令不完整的',
             type: 'warning'
           })
           return false
@@ -82,13 +77,13 @@ export default {
   computed: {
     ...mapGetters([
       'currentUser',
-      'isNewTopicVisible',
       'topicLoading',
       'tags'
     ]),
     toolbars () {
       let toolbars = deepCopy(this.$store.getters.toolbars)
       toolbars['help'] = false
+
       return toolbars
     }
   }
