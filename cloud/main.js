@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-27 19:20:30
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-24 16:21:03
+* @Last Modified time: 2017-07-25 18:16:02
 */
 'use strict'
 
@@ -146,7 +146,7 @@ Parse.Cloud.beforeSave('Reply', (req, res) => {
 })
 
 Parse.Cloud.afterSave('Reply', req => {
-  if (req.object.isNew()) {
+  if (!req.object.existed()) {
     const topic = req.object.get('topic')
     topic.set('repliedAuthor', req.user)
     topic.set('repliedAt', new Date())

@@ -87,7 +87,7 @@ export default {
           descend = true
       }
 
-      // TODO: real sorting by selected type
+      // TODO: sorting in backend
       // TODO: resort by watching this.field & this.descend reactively
       if (field !== this.field || descend !== this.descend) {
         // if (field === 'createdAt') {

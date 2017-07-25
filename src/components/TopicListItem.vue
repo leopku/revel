@@ -2,7 +2,7 @@
   <section class="topic-list-item hover-background--gray">
     <transition>
       <router-link :to="{ name: 'topic-detail', params: { id: topic.objectId } }" class="flex">
-        <Avatar :username="topic.author.username" :src="topic.author.avatar" :size="40"></Avatar>
+        <Avatar :username="topic.author.username" :src="topic.author.avatar" :size="40" style="margin-right: 0.5em;"></Avatar>
         <div class="topic flex-grow--true">
             <div class="flex flex-justify--between">
               <div>
@@ -80,9 +80,9 @@ export default {
 .topic-list-item {
   padding: 1em 0 1em 1em;
 
-  .avatar {
-    margin-right: 0.5em
-  }
+  // .avatar {
+  //   margin-right: 0.5em
+  // }
 
   .topic {
     .title {
