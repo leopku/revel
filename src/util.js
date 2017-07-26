@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-29 16:19:16
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-20 12:33:19
+* @Last Modified time: 2017-07-27 00:30:41
 */
 
 'use strict'
@@ -45,6 +45,6 @@ export function deepCopy (obj, cache = []) {
 
 export const defaultACL = {
   '*': { read: true },
-  'role:level0': { read: true },
+  // 'role:level0': { read: true },
   'role:Moderators': { write: true }
 }
