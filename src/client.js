@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-06-30 16:25:18
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-24 16:44:11
+* @Last Modified time: 2017-07-26 12:34:08
 */
 
 'use strict'
@@ -23,31 +23,47 @@ import { deepCopy } from '@/util'
  */
 function getTopics (
   {
+    categoryId = '',
     limit = 20,
     skip = 0,
     order = '-createdAt',
     include = 'author,repliedAuthor'
   } = {}) {
-  return Vue.axios.get('/classes/Topic', {
-    params: {
+  if (categoryId) {
+    return this.getPointer({
+      targetClassName: 'Topic',
+      objectId: categoryId,
+      className: 'Tag',
+      key: 'tags',
       limit,
       skip,
       order,
       include
-    }
-  })
-    .then(response => response.data)
-    .then(data => data.results)
-    .then(topics => {
-      if (!Array.isArray(topics)) { return Promise.reject(new Error('Result of topics is not an array')) }
-      Lazy(topics).each(topic => {
-        if (topic.tags) {
-          this.getTagsOfTopic(topic)
-        }
-        return topic
-      })
-      return topics
     })
+      .then(response => response.data)
+      .then(data => data.results)
+  } else {
+    return Vue.axios.get('/classes/Topic', {
+      params: {
+        limit,
+        skip,
+        order,
+        include
+      }
+    })
+      .then(response => response.data)
+      .then(data => data.results)
+      .then(topics => {
+        if (!Array.isArray(topics)) { return Promise.reject(new Error('Result of topics is not an array')) }
+        Lazy(topics).each(topic => {
+          if (topic.tags) {
+            this.getTagsOfTopic(topic)
+          }
+          return topic
+        })
+        return topics
+      })
+  }
 }
 
 /**
@@ -58,10 +74,10 @@ function getTopics (
 function getTagsOfTopic (topic) {
   topic.tagObject = deepCopy(topic.tags)
   delete topic.tags
-  return this.getRelationsRelatedTo({
+  return this.getRelated({
     targetClass: topic.tagObject.className,
-    sourceObject: topic,
-    sourceClassName: 'Topic',
+    className: 'Topic',
+    objectId: topic.objectId,
     key: 'tags',
     order: '-color'
   })
@@ -189,11 +205,11 @@ function getConfig () {
  * @return {Promise}
  * @chainable true
  */
-function getRelationsRelatedTo (
+function getRelated (
   {
     targetClass,
-    sourceObject,
-    sourceClassName,
+    className,
+    objectId,
     key,
     limit = 5, // 5 max
     skip = 0,
@@ -207,8 +223,8 @@ function getRelationsRelatedTo (
       '$relatedTo': {
         object: {
           '__type': 'Pointer',
-          className: sourceClassName,
-          objectId: sourceObject.objectId
+          className,
+          objectId
         },
         key: key
       }
@@ -267,6 +283,6 @@ export default {
   getObjects,
   getObjectById,
   getTagsOfTopic,
-  getRelationsRelatedTo,
+  getRelated,
   getPointer
 }

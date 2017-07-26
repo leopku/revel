@@ -31,7 +31,7 @@ export default {
     },
     colClass: {
       type: String,
-      default: ''
+      default: 'flex flex-justify--center flex-align--middle flex-direction--column'
     },
     minHeight: {
       type: String,

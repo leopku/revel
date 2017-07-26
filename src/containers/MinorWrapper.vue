@@ -4,10 +4,10 @@
       <el-col class="minor">
         <div class="minor-inner">
           <el-button type="primary" size="large" @click="onNewTopic">新的话题</el-button>
-          <el-menu theme="light" class="bg--white" :mode="menuMode">
-            <el-menu-item index="1"><i class="typcn typcn-messages" style="font-size: .8em;"></i> 所有话题</el-menu-item>
-            <el-menu-item index="2"><i class="typcn typcn-th-large-outline" style="font-size: .8em;"></i> 分类</el-menu-item>
-            <el-menu-item v-for="(tag, index) in tags" :index="index+'2'" :key="index+2">
+          <el-menu theme="light" class="bg--white" :mode="menuMode" :router="true">
+            <el-menu-item index="/"><i class="typcn typcn-messages" style="font-size: .8em;"></i> 所有话题</el-menu-item>
+            <el-menu-item index="/c"><i class="typcn typcn-th-large-outline" style="font-size: .8em;"></i> 分类</el-menu-item>
+            <el-menu-item v-for="(tag, index) in tags" :index="'/c/'+tag.objectId" :key="index+2">
               <i class="tag-icon" :style="'background-color: ' + tag.color +';'"></i> {{ tag.title }}
             </el-menu-item>
           </el-menu>
@@ -29,7 +29,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('load_category')
+    this.$store.dispatch('load_categories')
   },
   mounted () {
     window.addEventListener('resize', this.onResize)

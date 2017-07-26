@@ -39,7 +39,7 @@ import TopicDetailJumbotron from '@/components/TopicDetailJumbotron'
 import ReplyList from '@/components/ReplyList'
 
 export default {
-  name: 'topic-detail',
+  name: 'topic-detail-wrapper',
   components: {
     Affix,
     TopicDetailJumbotron,
@@ -48,7 +48,6 @@ export default {
   created () {
     const topicId = this.$route.params.id
     this.$store.dispatch('load_topic', { id: topicId })
-    console.log(this.$route.params.id, this.topic.objectId)
     this.$store.dispatch('load_replies', { topicId })
   },
   methods: {

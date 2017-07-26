@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-18 20:52:57
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-22 23:04:58
+* @Last Modified time: 2017-07-25 18:45:58
 */
 
 'use strict'
@@ -72,7 +72,10 @@ const actions = {
       content,
       topicId
     })
-      .then(reply => commit(types.REPLY_LOAD_SUCCESS, { reply }))
+      .then(reply => {
+        commit(types.REPLY_LOAD_SUCCESS, { reply })
+        return reply
+      })
       .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
   },
   vote ({ commit }, { action, replyId }) {
