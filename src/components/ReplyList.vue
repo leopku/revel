@@ -85,8 +85,7 @@ export default {
       // this.$refs[formName].validate(valid => valid)
     },
     onEditorChange (markdown, html) {
-      // this.markdown = markdown
-      this.reply.content = this.html
+      this.reply.content = html
     }
   },
   computed: {

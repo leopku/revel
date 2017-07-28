@@ -2,7 +2,7 @@
 * @Author: leopku
 * @Date:   2017-07-18 20:52:57
 * @Last Modified by:   leopku
-* @Last Modified time: 2017-07-25 18:45:58
+* @Last Modified time: 2017-07-28 11:29:25
 */
 
 'use strict'
@@ -65,7 +65,7 @@ const actions = {
       .then(replies => commit(types.REPLY_LOAD_SUCCESS, { replies }))
       .catch(error => commit(types.REPLY_LOAD_FAILED, { error }))
   },
-  save_reply ({ commit }, { markdown, content, topicId, ACL }) {
+  save_reply ({ commit }, { markdown, content, topicId }) {
     commit(types.REPLY_LOAD)
     client.createReply({
       markdown,
