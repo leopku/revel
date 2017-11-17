@@ -7,6 +7,7 @@ Revel is inspired by flarum
 ## Preview
 
 ![](https://ooo.0o0.ooo/2017/07/02/5958d520a1dad.png)
+![](https://ooo.0o0.ooo/2017/07/02/5958d5212adfe.png)
 
 # Links
 
