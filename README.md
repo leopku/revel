@@ -1,4 +1,8 @@
-# Revel
+# [Deprecated] Revel
+
+IMPORTANT: THIS PROJECT WAS DEPRECATED AND WOULD NOT TO BE MAINTAINED.
+
+THERE WOULD BE ANOTHER PROJECT TO REPLACE THIS PROJECT.
 
 Revel is an elegant forum or knowledge sharing system base on NodeJS especially VueJS.
 
